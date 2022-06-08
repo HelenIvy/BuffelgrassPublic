@@ -1,10 +1,9 @@
 
 #read in data
 library(readxl)
-BG_Richness <- read_excel("Data/BG Richness.xlsx", 
-                          sheet = "CNT cut")
+library(readxl)
+BG_Richness <- read_excel("Data/BG Richness.xlsx")
 View(BG_Richness)
-
 
 DATARich <- BG_Richness
 
@@ -36,6 +35,8 @@ require(lme4)
 
 m1 <- lmer(NativeRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m1)
+m1b <- lmer(NativeRichness  ~YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
+summary (m1b)
 m2 <- lmer(LogNativeRichness ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m2)
 m3 <- lmer(SQRTNativeRichness ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
@@ -48,12 +49,16 @@ m6 <- lmer(SQRTNativePerennialRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK
 summary (m6)
 m7 <- lmer(NativeAnnualRichness ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m7)
+m7b <- lmer(NativeAnnualRichness ~YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
+summary (m7b)
 m8 <- lmer(Logp1NativeAnnualRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m8)
 m9 <- lmer(SQRTNativeAnnualRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m9)
 m10 <- lmer(NonnativeRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m10)
+m10b <- lmer(NonnativeRichness  ~YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
+summary (m10b)
 m11 <- lmer(Logp1NonnativeRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m11)
 m12 <- lmer(SQRTNonnativeRichness     ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
@@ -71,6 +76,7 @@ Anova(m7)
 Anova(m8)
 Anova(m9)
 Anova(m10)
+Anova(m10b)
 Anova(m11)
 Anova(m12)
 
@@ -195,33 +201,8 @@ require(multcomp)
 
 
 #posthoc differences m1 - treatment and year significant
-marginal = emmeans(m1,
-                   ~ TREATMENT*SEASONYEAR)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
-marginal = emmeans(m1,
-                   ~ TREATMENT)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
 
-marginal = emmeans(m2,
-                   ~ TREATMENT)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
-
-marginal = emmeans(m5,
+marginal = emmeans(m1b,
                    ~ YEAR)
 pairs(marginal,
       adjust="tukey")
@@ -230,7 +211,7 @@ cld(marginal,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
 
-marginal = emmeans(m9,
+marginal = emmeans(m7b,
                    ~ YEAR)
 pairs(marginal,
       adjust="tukey")
@@ -238,3 +219,14 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
+
+marginal = emmeans(m10b,
+                   ~ YEAR)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+
+
