@@ -129,25 +129,7 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
-#contrast statement between herbicide 2x and 3x using code from https://cran.r-project.org/web/packages/contrast/vignettes/contrast.html
 
-
-install.packages("contrast")
-install.packages("dplyr")
-library(contrast)
-library(dplyr)
-DATABGIC %>% 
-  group_by(SEASONYEAR, TREATMENT) %>% 
-  count()
-
-lm_fit_1 <- lm(expression ~ (SEASONYEAR + TREATMENT)^2, data = DATABGIC)
-summary(lm_fit_1)
-
-trt_effect<-
-contrast(lm_fit_1, 
-                     list(seasonyear = "Spring2022"(DATABGIC$SEASONYEAR), TREATMENT = "H1x1x"),
-                     list(seasonyear = "Spring2022"(DATABGIC$SEASONYEAR), TREATMENT = "H2x1x"))
-print(trt_effect, X = TRUE)
 
 marginal = emmeans(m2b,
                    ~ TREATMENT)

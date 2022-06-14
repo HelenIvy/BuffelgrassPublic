@@ -50,6 +50,7 @@ install.packages("glmmADMB",
 
 
 require(pscl)
+#I ended up only including time and supplies in the MS because they were similar graphs and because the decimalhours was not normal, it had unequal variance and transforming did not work sufficiently;
 
 m1c <- lmer(Timeandsupplies ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACosts)
 summary (m1c)
