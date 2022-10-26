@@ -3,7 +3,8 @@
 library(readxl)
 library(readxl)
 library(readxl)
-Plant_community_cover2018ONLY <- read_excel("Data/Plant community cover2018ONLY.xlsx")
+library(readr)
+Plant_community_cover2018ONLY <- read_csv("Data/Plant community cover2018ONLY.csv")
 View(Plant_community_cover2018ONLY)
 
 
@@ -35,16 +36,20 @@ library(lme4)
 library(redres)
 require(lme4)
 
-
+#normal distribution best for PECI
 m1 <- lmer(PECICover ~TREATMENT +(1|BLOCK), data =  DATA2018)
 summary (m1)
-m2 <- lmer(SQRTPECIcover ~TREATMENT +(1|BLOCK), data =  DATA2018)
-summary (m2)
+m2b <- lmer(Nativecover ~TREATMENT +(1|BLOCK), data =  DATA2018)
+summary (m2b)
+m2c <- lmer(SQRTNativecover ~TREATMENT +(1|BLOCK), data =  DATA2018)
+summary (m2c)
+
 
 library(car)
 require(car)
 Anova(m1)
-Anova(m2)
+Anova(m2b)
+Anova(m2c)
 
 
 #studentized residuals
@@ -72,14 +77,21 @@ head(resids)
 plot_redres(m1, type = "std_cond")
 
 
-#residuals m2;
+#residuals m2; gap in the middle of the residuals - does this matter? m2b better than m2c
 
-rc_resids <- compute_redres(m2)
-pm_resids <- compute_redres(m2, type = "pearson_mar")
-sc_resids <- compute_redres(m2, type = "std_cond")
+rc_resids <- compute_redres(m2b)
+pm_resids <- compute_redres(m2b, type = "pearson_mar")
+sc_resids <- compute_redres(m2b, type = "std_cond")
 resids <- data.frame(DATA$Stacked_inds_removed_added_within_season, rc_resids, pm_resids, sc_resids)
 head(resids) 
-plot_redres(m2, type = "std_cond")
+plot_redres(m2b, type = "std_cond")
+
+rc_resids <- compute_redres(m2c)
+pm_resids <- compute_redres(m2c, type = "pearson_mar")
+sc_resids <- compute_redres(m2c, type = "std_cond")
+resids <- data.frame(DATA$Stacked_inds_removed_added_within_season, rc_resids, pm_resids, sc_resids)
+head(resids) 
+plot_redres(m2c, type = "std_cond")
 
 
 
@@ -108,26 +120,8 @@ cld(marginal,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
 
-marginal = emmeans(m2,
+marginal = emmeans(m2b,
                    ~ TREATMENT)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
-
-marginal = emmeans(m5,
-                   ~ YEAR)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
-
-marginal = emmeans(m9,
-                   ~ YEAR)
 pairs(marginal,
       adjust="tukey")
 cld(marginal,
