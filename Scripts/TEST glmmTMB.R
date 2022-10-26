@@ -4,7 +4,7 @@
 library(readr)
 IndividualsBG2 <- read_csv("Data/IndividualsBG2.csv")
 View(IndividualsBG2)
-
+#dataset does not include invaded control plots (only counted 2 seasons)
 
 
 DATAglmm <- IndividualsBG2
@@ -50,23 +50,31 @@ theme_set(theme_bw()+
 #JB SUGGESTS https://journal.r-project.org/archive/2017/RJ-2017-066/RJ-2017-066.pdf
 require(glmmTMB)
 require(car)
-fit_zipoisson <- glmmTMB(Individuals~TREATMENT + SEASONYEAR
-                           + (1|BLOCK)+(1|BLOCKPLOT),
+fit_zipoisson <- glmmTMB(Individuals~TREATMENT + SEASONYEAR 
+                                                   + (1|BLOCK)+(1|BLOCKPLOT),
                          data=DATAglmm,
                          ziformula=~1,
                          family=poisson)
+
 summary(fit_zipoisson)
 
 fit_zinbinom1 <- update(fit_zipoisson,family=nbinom1)
 summary(fit_zinbinom1)
 
+
 fit_zinbinom2 <- update(fit_zipoisson,family=nbinom2)
 summary(fit_zinbinom2)
 
+#file:///Z:/Shared/Field%20Institute/Research/1%20Current%20Projects/Invasive%20Plants%20-%20Pennisetum%20removal%20experiments/Data/Analysis/BG%202022/Fall%202022%20estimates%20data%20and%20analysis/glmmTMB.pdf
 
 AICtab(fit_zipoisson,fit_zinbinom2,fit_zinbinom1)
 #best fit is zinbinom1
 
+#using car anova https://cran.r-project.org/web/packages/glmmTMB/vignettes/model_evaluation.pdf
+library(car)
+
+Anova(fit_zinbinom1,type="III")
+  
 #Post-hoc analysis can be conducted with the emmeans package.
 library(multcompView)
 require(multcompView)
@@ -74,13 +82,21 @@ library(multcomp)
 require(multcomp)
 library(emmeans)
 require(emmeans)
+
+
 marginal = emmeans(fit_zinbinom1,
                    ~ TREATMENT)
 pairs(marginal,
-      adjust="sidak")
-CLD = cld(marginal,
-          alpha=0.05,
-          Letters=letters,
-          adjust="sidak")
-
-
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+marginal = emmeans(fit_zinbinom1,
+                   ~ SEASONYEAR)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
