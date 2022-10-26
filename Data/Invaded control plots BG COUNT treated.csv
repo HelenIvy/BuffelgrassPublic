@@ -1,4 +1,4 @@
-Block,Plot,BlockPlot,Code,Treatment,Year,Season,SeasonYear,Individuals (#/plot)
+Block,Plot,BlockPlot,Code,Treatment,Year,Season,SeasonYear,Individuals
 2,4a,24a,CNT-P,Manual removal 2x,2020,Spring,Spring2020,54
 2,4b,24b,CNT-H,Herbicide 2x,2020,Spring,Spring2020,54
 3,5a,35a,CNT-H,Herbicide 2x,2020,Spring,Spring2020,60
