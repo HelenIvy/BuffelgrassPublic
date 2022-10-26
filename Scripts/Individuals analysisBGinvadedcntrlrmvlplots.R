@@ -1,12 +1,8 @@
 
 #read in data
-library(readxl)
-library(readxl)
-library(readxl)
+
 library(readr)
-library(readr)
-library(readxl)
-BG_Individuals_Invaded_Cntl_removals <- read_excel("Data/BG Individuals Invaded Cntl removals.xlsx")
+BG_Individuals_Invaded_Cntl_removals <- read_csv("Data/BG Individuals Invaded Cntl removals.csv")
 View(BG_Individuals_Invaded_Cntl_removals)
 
 DATABGICH2P2 <- BG_Individuals_Invaded_Cntl_removals
@@ -43,16 +39,35 @@ m4 <- lmer(SQRTIndividuals ~TREATMENT*SEASONYEAR + (1|BLOCKPLOT)+(1|BLOCK), data
 summary (m4)
 m5 <- lmer(LOGP1Individuals ~TREATMENT*SEASONYEAR + (1|BLOCKPLOT)+(1|BLOCK), data = DATABGICH2P2)
 summary (m5)
+# try zero inflated model
+library("glmmTMB")
+require("glmmTMB")
+library("bbmle") ## for AICtab
+library("ggplot2")
+## cosmetic
+theme_set(theme_bw()+
+            theme(panel.spacing=grid::unit(0,"lines")))
 
+
+require(glmmTMB)
+require(car)
+m6 <- glmmTMB(Individuals~TREATMENT + SEASONYEAR 
+                         + (1|BLOCK)+(1|BLOCKPLOT),
+                         data=DATAglmm,
+                         ziformula=~1,
+                         family=poisson)
+
+summary(fit_zipoisson)
 
 m6 <- glmer(individuals ~TREATMENT + (1|BLOCKPLOT) + (1 | BLOCK), 
              data= DATABGICH2P2, family = poisson(link="log"))
+AICtab(m3b,m4,m6)
 
-Anova(m3b)
+Anova(m3b,type="III")
 
-Anova(m4)
-Anova(m5)
-Anova(m6)
+Anova(m4,type="III")
+Anova(m5,type="III")
+Anova(m6,type="III")
 #studentized residuals
 # fits an lmer model
 library(lme3)
