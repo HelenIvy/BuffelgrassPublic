@@ -34,21 +34,16 @@ library(lme4)
 library(redres)
 require(lme4)
 
+#transformation not needed
 
 m1l <- lmer(Litter ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATALitter)
 summary (m1l)
-m1lb <- lmer(Litter ~YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATALitter)
-summary (m1lb)
-m2l <- lmer(Logp1Litter ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATALitter)
-summary (m2l)
-m3l <- lmer(SQRTLitter       ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATALitter)
-summary (m3l)
+
 
 library(car)
 require(car)
 Anova(m1l)
-Anova(m2l)
-Anova(m3l)
+
 
 #studentized residuals
 # fits an lmer model
@@ -103,7 +98,7 @@ require(multcomp)
 
 #posthoc differences m1 - treatment and year significant
 
-marginal = emmeans(m1lb,
+marginal = emmeans(m1l,
                    ~ YEAR)
 pairs(marginal,
       adjust="tukey")
@@ -111,4 +106,11 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
-
+marginal = emmeans(m1l,
+                   ~ TREATMENT)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
