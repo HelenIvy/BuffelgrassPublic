@@ -2,11 +2,13 @@
 #read in data
 library(readxl)
 library(readxl)
-Plant_community_cover_exportNOoutlier2018ONLY <- read_excel("Z:/Shared/Field Institute/Research/1 Current Projects/NNP Pennisetum removal experiments/Data/Analysis/BG 2022/Plant community cover exportNOoutlier2018ONLY.xlsx")
-View(Plant_community_cover_exportNOoutlier2018ONLY)
+library(readxl)
+Plant_community_cover2018ONLY <- read_excel("Data/Plant community cover2018ONLY.xlsx")
+View(Plant_community_cover2018ONLY)
 
 
-DATA2018 <- Plant_community_cover_exportNOoutlier2018ONLY
+
+DATA2018 <- Plant_community_cover2018ONLY
 
 # remove na in r - remove rows - na.omit function / option
 ompleterecords <- na.omit(DATA2018)
