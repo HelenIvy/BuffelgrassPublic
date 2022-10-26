@@ -1,10 +1,10 @@
 #read in data
 
 library(readr)
-BG_Individuals_Invaded_Cntl_removals <- read_csv("Data/BG Individuals Invaded Cntl removals.csv")
-View(BG_Individuals_Invaded_Cntl_removals)
+Invaded_control_plots_BG_COUNT_treated <- read_csv("Data/Invaded control plots BG COUNT treated.csv")
+View(Invaded_control_plots_BG_COUNT_treated)
 
-DATABGICglmm <- BG_Individuals_Invaded_Cntl_removals
+DATABGICglmm <- Invaded_control_plots_BG_COUNT_treated
 
 
 #Set categorical factors for main effects:
@@ -13,8 +13,8 @@ DATABGICglmm <- within(DATABGICglmm, {
   PLOT<-as.factor(Plot)
   BLOCKPLOT<-factor(BlockPlot)
   TREATMENT<-factor(Treatment)
-  YEAR<-factor(year)
-  SEASONYEAR<-factor(seasonyear)
+  YEAR<-factor(Year)
+  SEASONYEAR<-factor(SeasonYear)
   
 })
 #If use YEAR is categorical, if use Year is continous
@@ -66,7 +66,7 @@ AICtab(mpoi,mzinbinom2,mzinbinom1)
 #using car anova https://cran.r-project.org/web/packages/glmmTMB/vignettes/model_evaluation.pdf
 library(car)
 
-Anova(fit_zinbinom1,type="III")
+Anova(mzinbinom1,type="III")
   
 #Post-hoc analysis can be conducted with the emmeans package.
 library(multcompView)

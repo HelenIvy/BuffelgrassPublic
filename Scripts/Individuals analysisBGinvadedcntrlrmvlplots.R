@@ -1,19 +1,19 @@
-
 #read in data
 
 library(readr)
-BG_Individuals_Invaded_Cntl_removals <- read_csv("Data/BG Individuals Invaded Cntl removals.csv")
-View(BG_Individuals_Invaded_Cntl_removals)
+Invaded_control_plots_BG_COUNT_treated <- read_csv("Data/Invaded control plots BG COUNT treated.csv")
+View(Invaded_control_plots_BG_COUNT_treated)
 
-DATABGICH2P2 <- BG_Individuals_Invaded_Cntl_removals
+DATABGICH2P2 <- Invaded_control_plots_BG_COUNT_treated
 
 #Set categorical factors for main effects:
 DATABGICH2P2 <- within(DATABGICH2P2, {
-  BLOCK<-factor(Block)
+  BLOCK<-as.factor(Block)
+  PLOT<-as.factor(Plot)
   BLOCKPLOT<-factor(BlockPlot)
   TREATMENT<-factor(Treatment)
-  YEAR<-factor(year)
-  SEASONYEAR<-factor(seasonyear)
+  YEAR<-factor(Year)
+  SEASONYEAR<-factor(SeasonYear)
   
 })
 #If use YEAR is categorical, if use Year is continous
@@ -32,7 +32,7 @@ library(car)
 require(car)
 require(tidyr)
 #used log+1 transform m5
-m3b <- lmer(individuals ~TREATMENT*SEASONYEAR + (1|BLOCKPLOT)+(1|BLOCK), data = DATABGICH2P2)
+m3b <- lmer(Individuals ~TREATMENT*SEASONYEAR + (1|BLOCKPLOT)+(1|BLOCK), data = DATABGICH2P2)
 summary (m3b)
 
 m4 <- lmer(SQRTIndividuals ~TREATMENT*SEASONYEAR + (1|BLOCKPLOT)+(1|BLOCK), data = DATABGICH2P2)
