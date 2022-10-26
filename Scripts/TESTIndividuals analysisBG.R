@@ -4,11 +4,12 @@ library(readxl)
 library(readxl)
 library(readxl)
 library(readr)
-BG_Individuals <- read_csv("Data/BG Individuals.csv")
-View(BG_Individuals)
+library(readr)
+IndividualsBG2 <- read_csv("Data/IndividualsBG2.csv")
+View(IndividualsBG2)
+#dataset does not include invaded control plots (only counted 2 seasons)
 
-
-DATABGIC <- BG_Individuals
+DATABGIC <- IndividualsBG2
 
 #Set categorical factors for main effects:
 DATABGIC <- within(DATABGIC, {
