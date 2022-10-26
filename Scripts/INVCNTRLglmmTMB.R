@@ -44,7 +44,7 @@ theme_set(theme_bw()+
 
 require(glmmTMB)
 require(car)
-mpoi <- glmmTMB(Individuals~TREATMENT + SEASONYEAR 
+mpoi <- glmmTMB(Individuals~TREATMENT * SEASONYEAR 
                                                    + (1|BLOCK)+(1|BLOCKPLOT),
                          data=DATABGICglmm,
                          ziformula=~1,
@@ -56,12 +56,9 @@ mzinbinom1 <- update(mpoi,family=nbinom1)
 summary(mzinbinom1)
 
 
-mzinbinom2 <- update(mpoi,family=nbinom2)
-summary(mzinbinom2)
 
-
-AICtab(mpoi,mzinbinom2,mzinbinom1)
-#best fit is zinbinom1
+AICtab(mpoi,mzinbinom1)
+#best and only one to converge is mzinbinom1
 
 #using car anova https://cran.r-project.org/web/packages/glmmTMB/vignettes/model_evaluation.pdf
 library(car)
@@ -77,16 +74,8 @@ library(emmeans)
 require(emmeans)
 
 
-marginal = emmeans(fit_zinbinom1,
-                   ~ TREATMENT)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
 
-marginal = emmeans(fit_zinbinom1,
+marginal = emmeans(mzinbinom1,
                    ~ SEASONYEAR)
 pairs(marginal,
       adjust="tukey")
