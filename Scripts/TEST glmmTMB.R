@@ -10,8 +10,6 @@ View(IndividualsBG2)
 DATAglmm <- IndividualsBG2
 
 
-DATAglmm <- BG_Individuals
-
 #Set categorical factors for main effects:
 DATAglmm <- within(DATAglmm, {
   BLOCK<-as.factor(Block)
