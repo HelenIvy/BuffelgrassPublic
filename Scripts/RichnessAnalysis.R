@@ -5,6 +5,7 @@ library(readxl)
 BG_Richness <- read_excel("Data/BG Richness.xlsx")
 View(BG_Richness)
 
+
 DATARich <- BG_Richness
 
 # remove na in r - remove rows - na.omit function / option
@@ -14,13 +15,11 @@ ompleterecords <- na.omit(DATARich)
  DATARich <- within( DATARich, {
   BLOCK<-factor(Block)
   BLOCKPLOT<-factor(BlockPlot)
-  TREATMENT<-factor(PlotTreatment)
+  TREATMENT<-factor(Treatment)
   YEAR<-factor(Year)
-  
-  
-})
+  })
 #If use YEAR is categorical, if use Year is continous
-summary( DATARich)
+summary(DATARich)
 
 
 #repeated measures(1\SUBJECT) for the random subject effect 
@@ -97,7 +96,7 @@ pm_resids <- compute_redres(m1, type = "pearson_mar")
 sc_resids <- compute_redres(m1, type = "std_cond")
 
 # puts the residuals in a data frame with observed response and prints the first six rows
-resids <- data.frame(DATA$DATARichresids, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 #plot_redres creates a plot (using ggplot2) of the residuals versus the fitted values given a model and a specified residual type. All residual types listed for redres work with plot_redres.
 
@@ -110,7 +109,7 @@ plot_redres(m1, type = "std_cond")
 rc_resids <- compute_redres(m2)
 pm_resids <- compute_redres(m2, type = "pearson_mar")
 sc_resids <- compute_redres(m2, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m2, type = "std_cond")
 
@@ -119,7 +118,7 @@ plot_redres(m2, type = "std_cond")
 rc_resids <- compute_redres(m3)
 pm_resids <- compute_redres(m3, type = "pearson_mar")
 sc_resids <- compute_redres(m3, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m3, type = "std_cond")
 
@@ -128,7 +127,7 @@ plot_redres(m3, type = "std_cond")
 rc_resids <- compute_redres(m4)
 pm_resids <- compute_redres(m4, type = "pearson_mar")
 sc_resids <- compute_redres(m4, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m4, type = "std_cond")
 
@@ -138,7 +137,7 @@ plot_redres(m4, type = "std_cond")
 rc_resids <- compute_redres(m5)
 pm_resids <- compute_redres(m5, type = "pearson_mar")
 sc_resids <- compute_redres(m5, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m5, type = "std_cond")
 
@@ -147,7 +146,7 @@ plot_redres(m5, type = "std_cond")
 rc_resids <- compute_redres(m6)
 pm_resids <- compute_redres(m6, type = "pearson_mar")
 sc_resids <- compute_redres(m6, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m6, type = "std_cond")
 
@@ -156,7 +155,7 @@ plot_redres(m6, type = "std_cond")
 rc_resids <- compute_redres(m7)
 pm_resids <- compute_redres(m7, type = "pearson_mar")
 sc_resids <- compute_redres(m7, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m7, type = "std_cond")
 
@@ -165,7 +164,7 @@ plot_redres(m7, type = "std_cond")
 rc_resids <- compute_redres(m8)
 pm_resids <- compute_redres(m8, type = "pearson_mar")
 sc_resids <- compute_redres(m8, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m8, type = "std_cond")
 
@@ -173,7 +172,7 @@ plot_redres(m8, type = "std_cond")
 rc_resids <- compute_redres(m9)
 pm_resids <- compute_redres(m9, type = "pearson_mar")
 sc_resids <- compute_redres(m9, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m9, type = "std_cond")
 
@@ -181,7 +180,7 @@ plot_redres(m9, type = "std_cond")
 rc_resids <- compute_redres(m10)
 pm_resids <- compute_redres(m10, type = "pearson_mar")
 sc_resids <- compute_redres(m10, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m10, type = "std_cond")
 
@@ -189,7 +188,7 @@ plot_redres(m10, type = "std_cond")
 rc_resids <- compute_redres(m11)
 pm_resids <- compute_redres(m11, type = "pearson_mar")
 sc_resids <- compute_redres(m11, type = "std_cond")
-resids <- data.frame(DATA$BG_Richness, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATARich, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m11, type = "std_cond")
 
