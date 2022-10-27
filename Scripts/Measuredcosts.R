@@ -2,8 +2,9 @@
 #read in data
 library(readxl)
 
+
 BG_measured_costs_joined <- read_excel("Data/BG measured costs joined.xlsx", 
-                                       sheet = "no CNT")
+                                       sheet = "noCNTorCR")
 View(BG_measured_costs_joined)
 
 
@@ -102,7 +103,7 @@ head(resids)
 #plot_redres creates a plot (using ggplot2) of the residuals versus the fitted values given a model and a specified residual type. All residual types listed for redres work with plot_redres.
 
 # creates a plot of the conditional studentized residuals versus the fitted values
-plot_redres(m1l, type = "std_cond")
+plot_redres(m1c, type = "std_cond")
 
 
 #residuals m2c;
