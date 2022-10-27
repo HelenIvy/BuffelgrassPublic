@@ -70,6 +70,7 @@ AICtab(fit_zipoisson,fit_zinbinom2,fit_zinbinom1)
 library(car)
 
 Anova(fit_zinbinom1,type="III")
+Anova(fit_zinbinom1)
   
 #Post-hoc analysis can be conducted with the emmeans package.
 library(multcompView)
