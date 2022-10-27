@@ -37,6 +37,7 @@
 		Numeric,
 		"Continuous",
 		Format( "Best", 12 ),
+		Set Selected,
 		Set Values(
 			[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -84,7 +85,6 @@
 				"Manual removal and herbicide"}
 			), Common Order( 0 )}
 		),
-		Set Selected,
 		Set Values(
 			{"Manual removal and herbicide", "Manual removal and herbicide",
 			"Manual removal and herbicide", "Manual removal and herbicide",
@@ -251,13 +251,13 @@
 	),
 	Set Row States(
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7,
-		7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7,
-		0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
-		7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+		6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6,
+		6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6,
+		0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+		6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
 	)
 ) << Run Formulas;
 Graph Builder(
@@ -275,41 +275,41 @@ Graph Builder(
 			ScaleBox,
 			{Legend Model(
 				8,
-				Level Name( 0, "Uninvaded control", Item ID( "Uninvaded", 1 ) ),
 				Properties(
 					0,
-					{Fill Color( -16442434 )},
-					Item ID( "Uninvaded", 1 )
-				),
-				Properties(
-					1,
 					{Fill Color( -15113984 )},
 					Item ID( "Cut and herbicide", 1 )
 				),
 				Properties(
-					2,
+					1,
 					{Fill Color( -5682409 )},
 					Item ID( "Herbicide 1x", 1 )
 				),
 				Properties(
-					3,
+					2,
 					{Fill Color( -40563 )},
 					Item ID( "Herbicide 2x", 1 )
 				),
 				Properties(
-					4,
+					3,
 					{Fill Color( -29362 )},
 					Item ID( "Herbicide 3x", 1 )
 				),
 				Properties(
-					5,
+					4,
 					{Fill Color( -13983232 )},
 					Item ID( "Manual removal", 1 )
 				),
 				Properties(
-					6,
+					5,
 					{Fill Color( -13400487 )},
 					Item ID( "Manual removal and herbicide", 1 )
+				),
+				Level Name( -1, "Uninvaded control", Item ID( "Uninvaded", 1 ) ),
+				Properties(
+					-1,
+					{Fill Color( -16442434 )},
+					Item ID( "Uninvaded", 1 )
 				),
 				Properties(
 					-1,
@@ -370,7 +370,6 @@ Graph Builder(
 				)
 			)}
 		),
-		Dispatch( {}, "Y title", TextEditBox, {Set Text( "Measured costs ($)" )} ),
-		Dispatch( {}, "Graph Builder", FrameBox, {Reference Line Order( 2 )} )
+		Dispatch( {}, "Y title", TextEditBox, {Set Text( "Measured costs ($)" )} )
 	)
 );
