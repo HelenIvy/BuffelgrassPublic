@@ -1,0 +1,419 @@
+﻿New Table( "Joined data cover with litter",
+	Add Rows( 155 ),
+	New Script(
+		"Source",
+		Data Table( "Plant community cover" ) << Join(
+			With( Data Table( "Litter" ) ),
+			Merge Same Name Columns,
+			Select(
+				:Block, :Plot, :Code, :Treatment, :Year, :"Native Cover (Living)"n,
+				:"Native Perennial Cover (Living)"n,
+				:"Native Annual Cover (Living)"n, :"Nonnative Cover (Living)"n,
+				:"NN cover - PECI"n, :"PECI Cover (Living)"n,
+				:"ONPI Cover (Living)"n, :"BRTO Cover (Living)"n, :Standing litter
+			),
+			SelectWith( :Year, :Litter ),
+			By Matching Columns(
+				:Block = :Block, :Plot = :Plot, :Code = :Code, :Year = :Year
+			),
+			Drop multiples( 0, 0 ),
+			Include Nonmatches( 0, 0 ),
+			Preserve main table order( 0 )
+		)
+	),
+	New Column( "Match Flag",
+		Numeric,
+		"Nominal",
+		Format( "Best", 12 ),
+		Value Labels( {1 = "Main", 2 = "With", 3 = "Both"} ),
+		Use Value Labels( 1 ),
+		Set Values(
+			[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+			3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+			3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+			3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+			3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+			3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+			3, 3, 3, 3, 3, ., ., ., ., ., .]
+		),
+		Set Display Width( 68 )
+	),
+	New Column( "Block",
+		Character( 1 ),
+		"Nominal",
+		Set Values(
+			{"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+			"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+			"1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2",
+			"2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2",
+			"2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2",
+			"2", "2", "2", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3",
+			"3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3",
+			"3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "4",
+			"4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4",
+			"4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4",
+			"4", "4", "4", "4", "4", "4", "4", "4", "4", "2", "3", "4", "2", "3",
+			"4"}
+		),
+		Set Display Width( 43 )
+	),
+	New Column( "Plot",
+		Character( 16 ),
+		"Nominal",
+		Set Values(
+			{"1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "3", "3", "3", "3",
+			"3", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5", "6", "6", "6",
+			"6", "6", "7", "7", "7", "7", "7", "1", "1", "1", "1", "1", "2", "2",
+			"2", "2", "2", "3", "3", "3", "3", "3", "4", "4", "4", "5", "5", "5",
+			"5", "5", "6", "6", "6", "6", "6", "7", "7", "7", "7", "7", "8", "8",
+			"8", "8", "8", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "3",
+			"3", "3", "3", "3", "4", "4", "4", "4", "4", "5", "5", "5", "6", "6",
+			"6", "6", "6", "7", "7", "7", "7", "7", "8", "8", "8", "8", "8", "1",
+			"1", "1", "1", "1", "2", "2", "2", "2", "2", "3", "3", "3", "3", "3",
+			"4", "4", "4", "4", "4", "5", "5", "5", "5", "5", "6", "6", "6", "6",
+			"6", "7", "7", "7", "8", "8", "8", "8", "8", "4", "5", "7", "4", "5",
+			"7"}
+		),
+		Set Display Width( 43 )
+	),
+	New Column( "Code",
+		Character( 16 ),
+		"Nominal",
+		Set Values(
+			{"PH", "PH", "PH", "PH", "PH", "H1x1x", "H1x1x", "H1x1x", "H1x1x",
+			"H1x1x", "P", "P", "P", "P", "P", "CH", "CH", "CH", "CH", "CH", "H1x",
+			"H1x", "H1x", "H1x", "H1x", "CR", "CR", "CR", "CR", "CR", "H2x1x",
+			"H2x1x", "H2x1x", "H2x1x", "H2x1x", "CR", "CR", "CR", "CR", "CR", "PH",
+			"PH", "PH", "PH", "PH", "H1x", "H1x", "H1x", "H1x", "H1x", "CNT", "CNT",
+			"CNT", "H1x1x", "H1x1x", "H1x1x", "H1x1x", "H1x1x", "CH", "CH", "CH",
+			"CH", "CH", "H2x1x", "H2x1x", "H2x1x", "H2x1x", "H2x1x", "P", "P", "P",
+			"P", "P", "CR", "CR", "CR", "CR", "CR", "H1x1x", "H1x1x", "H1x1x",
+			"H1x1x", "H1x1x", "PH", "PH", "PH", "PH", "PH", "H1x", "H1x", "H1x",
+			"H1x", "H1x", "CNT", "CNT", "CNT", "CH", "CH", "CH", "CH", "CH", "P",
+			"P", "P", "P", "P", "H2x1x", "H2x1x", "H2x1x", "H2x1x", "H2x1x", "PH",
+			"PH", "PH", "PH", "PH", "P", "P", "P", "P", "P", "CR", "CR", "CR", "CR",
+			"CR", "CH", "CH", "CH", "CH", "CH", "H2x1x", "H2x1x", "H2x1x", "H2x1x",
+			"H2x1x", "H1x", "H1x", "H1x", "H1x", "H1x", "CNT", "CNT", "CNT", "H1x1x",
+			"H1x1x", "H1x1x", "H1x1x", "H1x1x", "", "", "", "", "", ""}
+		),
+		Set Display Width( 43 )
+	),
+	New Column( "Treatment",
+		Character,
+		"Nominal",
+		Set Property(
+			"Value Order",
+			{Custom Order(
+				{"UnInvaded control", "Invaded control", "CNT-H", "CNT-P",
+				"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
+				"Manual removal", "Manual removal and herbicide"}
+			), Common Order( 0 )}
+		),
+		Set Selected,
+		Set Values(
+			{"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Herbicide 2x", "Herbicide 2x",
+			"Herbicide 2x", "Herbicide 2x", "Herbicide 2x", "Manual removal",
+			"Manual removal", "Manual removal", "Manual removal", "Manual removal",
+			"Cut and herbicide", "Cut and herbicide", "Cut and herbicide",
+			"Cut and herbicide", "Cut and herbicide", "Herbicide 1x", "Herbicide 1x",
+			"Herbicide 1x", "Herbicide 1x", "Herbicide 1x", "UnInvaded control",
+			"UnInvaded control", "UnInvaded control", "UnInvaded control",
+			"UnInvaded control", "Herbicide 3x", "Herbicide 3x", "Herbicide 3x",
+			"Herbicide 3x", "Herbicide 3x", "UnInvaded control", "UnInvaded control",
+			"UnInvaded control", "UnInvaded control", "UnInvaded control",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Herbicide 1x", "Herbicide 1x",
+			"Herbicide 1x", "Herbicide 1x", "Herbicide 1x", "Invaded control",
+			"Invaded control", "Invaded control", "Herbicide 2x", "Herbicide 2x",
+			"Herbicide 2x", "Herbicide 2x", "Herbicide 2x", "Cut and herbicide",
+			"Cut and herbicide", "Cut and herbicide", "Cut and herbicide",
+			"Cut and herbicide", "Herbicide 3x", "Herbicide 3x", "Herbicide 3x",
+			"Herbicide 3x", "Herbicide 3x", "Manual removal", "Manual removal",
+			"Manual removal", "Manual removal", "Manual removal",
+			"UnInvaded control", "UnInvaded control", "UnInvaded control",
+			"UnInvaded control", "UnInvaded control", "Herbicide 2x", "Herbicide 2x",
+			"Herbicide 2x", "Herbicide 2x", "Herbicide 2x",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Herbicide 1x", "Herbicide 1x",
+			"Herbicide 1x", "Herbicide 1x", "Herbicide 1x", "Invaded control",
+			"Invaded control", "Invaded control", "Cut and herbicide",
+			"Cut and herbicide", "Cut and herbicide", "Cut and herbicide",
+			"Cut and herbicide", "Manual removal", "Manual removal",
+			"Manual removal", "Manual removal", "Manual removal", "Herbicide 3x",
+			"Herbicide 3x", "Herbicide 3x", "Herbicide 3x", "Herbicide 3x",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal", "Manual removal",
+			"Manual removal", "Manual removal", "Manual removal",
+			"UnInvaded control", "UnInvaded control", "UnInvaded control",
+			"UnInvaded control", "UnInvaded control", "Cut and herbicide",
+			"Cut and herbicide", "Cut and herbicide", "Cut and herbicide",
+			"Cut and herbicide", "Herbicide 3x", "Herbicide 3x", "Herbicide 3x",
+			"Herbicide 3x", "Herbicide 3x", "Herbicide 1x", "Herbicide 1x",
+			"Herbicide 1x", "Herbicide 1x", "Herbicide 1x", "Invaded control",
+			"Invaded control", "Invaded control", "Herbicide 2x", "Herbicide 2x",
+			"Herbicide 2x", "Herbicide 2x", "Herbicide 2x", "Invaded control",
+			"Invaded control", "Invaded control", "Invaded control",
+			"Invaded control", "Invaded control"}
+		),
+		Set Display Width( 131 )
+	),
+	New Column( "Year",
+		Character( 4 ),
+		"Ordinal",
+		Set Values(
+			{"2018", "2019", "2020", "2021", "2022", "2018", "2019", "2020", "2021",
+			"2022", "2018", "2019", "2020", "2021", "2022", "2018", "2019", "2020",
+			"2021", "2022", "2018", "2019", "2020", "2021", "2022", "2018", "2019",
+			"2020", "2021", "2022", "2018", "2019", "2020", "2021", "2022", "2018",
+			"2019", "2020", "2021", "2022", "2018", "2019", "2020", "2021", "2022",
+			"2018", "2019", "2020", "2021", "2022", "2018", "2019", "2020", "2018",
+			"2019", "2020", "2021", "2022", "2018", "2019", "2020", "2021", "2022",
+			"2018", "2019", "2020", "2021", "2022", "2018", "2019", "2020", "2021",
+			"2022", "2018", "2019", "2020", "2021", "2022", "2018", "2019", "2020",
+			"2021", "2022", "2018", "2019", "2020", "2021", "2022", "2018", "2019",
+			"2020", "2021", "2022", "2018", "2019", "2020", "2018", "2019", "2020",
+			"2021", "2022", "2018", "2019", "2020", "2021", "2022", "2018", "2019",
+			"2020", "2021", "2022", "2018", "2019", "2020", "2021", "2022", "2018",
+			"2019", "2020", "2021", "2022", "2018", "2019", "2020", "2021", "2022",
+			"2018", "2019", "2020", "2021", "2022", "2018", "2019", "2020", "2021",
+			"2022", "2018", "2019", "2020", "2021", "2022", "2018", "2019", "2020",
+			"2018", "2019", "2020", "2021", "2022", "2021", "2021", "2021", "2022",
+			"2022", "2022"}
+		),
+		Set Display Width( 43 )
+	),
+	New Column( "Native Cover (Living)",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[20, 62, 33, 24, 53, 29, 98, 75, 19, 52, 32, 44, 77, 34, 42, 23, 110,
+			158, 49, 110, 52, 95, 102, 30, 76, 65, 110, 102, 52, 69, 56, 110, 115,
+			41, 77, 41, 86, 86, 30, 44, 30, 106, 119, 34, 49, 33, 109, 102, 34, 50,
+			25, 46, 107, 36, 96, 105, 35, 49, 30, 123, 146, 52, 64, 6, 78, 81, 32,
+			39, 33, 81, 98, 28, 56, 99, 177, 216, 87, 116, 43, 130, 119, 57, 64, 25,
+			97, 95, 43, 42, 21, 119, 119, 49, 60, 35, 76, 126, 38, 92, 99, 41, 51,
+			43, 79, 90, 40, 59, 43, 112, 118, 44, 60, 35, 88, 115, 54, 59, 17, 13,
+			72, 23, 47, 48, 110, 125, 51, 68, 39, 98, 96, 46, 74, 28, 62, 81, 51, 47,
+			13, 78, 140, 34, 51, 28, 31, 58, 11, 91, 160, 36, 46, ., ., ., ., ., .]
+		),
+		Set Display Width( 107 )
+	),
+	New Column( "Native Perennial Cover (Living)",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[20, 16, 21, 23, 35, 24, 21, 16, 19, 37, 28, 26, 26, 25, 32, 23, 48, 68,
+			41, 59, 42, 32, 36, 29, 38, 58, 68, 58, 51, 49, 52, 38, 36, 40, 52, 40,
+			29, 38, 30, 41, 24, 27, 38, 32, 49, 32, 40, 43, 34, 49, 25, 22, 28, 33,
+			25, 44, 33, 47, 28, 37, 60, 52, 64, 5, 13, 30, 31, 38, 33, 29, 37, 28,
+			53, 99, 89, 113, 87, 110, 43, 47, 63, 49, 62, 25, 32, 55, 42, 41, 21, 48,
+			72, 49, 60, 35, 30, 36, 38, 44, 63, 40, 49, 43, 49, 53, 40, 56, 43, 48,
+			64, 42, 55, 35, 50, 70, 54, 54, 17, 9, 29, 22, 29, 46, 29, 57, 38, 47,
+			39, 61, 67, 45, 66, 28, 43, 48, 50, 46, 12, 25, 57, 33, 47, 27, 20, 18,
+			11, 37, 69, 36, 44, ., ., ., ., ., .]
+		),
+		Set Display Width( 107 )
+	),
+	New Column( "Native Annual Cover (Living)",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[0, 46, 12, 1, 18, 5, 77, 59, 0, 15, 4, 18, 51, 9, 10, 0, 62, 90, 8, 51,
+			10, 63, 66, 1, 38, 7, 42, 44, 1, 20, 4, 72, 79, 1, 25, 1, 57, 48, 0, 3,
+			6, 79, 81, 2, 0, 1, 69, 59, 0, 1, 0, 24, 78, 3, 71, 61, 2, 2, 2, 86, 86,
+			0, 0, 1, 65, 51, 1, 1, 0, 52, 61, 0, 3, 0, 88, 103, 0, 6, 0, 83, 56, 8,
+			2, 0, 65, 40, 1, 1, 0, 71, 47, 0, 0, 0, 46, 90, 0, 48, 36, 1, 2, 0, 30,
+			37, 0, 3, 0, 63, 54, 2, 5, 0, 38, 45, 0, 5, 0, 4, 43, 1, 18, 2, 81, 68,
+			13, 21, 0, 37, 29, 1, 8, 0, 19, 33, 1, 1, 1, 53, 83, 1, 4, 0, 11, 40, 0,
+			54, 91, 0, 2, ., ., ., ., ., .]
+		),
+		Set Display Width( 107 )
+	),
+	New Column( "Nonnative Cover (Living)",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[50, 47, 69, 35, 20, 88, 37, 83, 76, 33, 67, 41, 34, 49, 16, 54, 20, 33,
+			16, 5, 42, 18, 34, 22, 0, 11, 8, 14, 28, 5, 47, 18, 63, 58, 4, 11, 43,
+			21, 4, 1, 43, 62, 55, 32, 1, 47, 32, 26, 24, 0, 65, 84, 78, 51, 44, 61,
+			20, 0, 56, 21, 54, 11, 0, 61, 38, 27, 36, 1, 35, 69, 32, 21, 13, 0, 8,
+			40, 12, 0, 38, 21, 27, 36, 1, 38, 22, 25, 10, 1, 67, 36, 23, 0, 1, 55,
+			94, 101, 37, 74, 80, 21, 7, 27, 56, 43, 7, 12, 40, 10, 32, 27, 8, 50, 60,
+			28, 32, 2, 70, 91, 39, 23, 35, 2, 50, 59, 39, 1, 65, 73, 35, 10, 4, 52,
+			30, 8, 6, 0, 66, 24, 12, 3, 2, 69, 80, 75, 78, 26, 13, 0, 0, ., ., ., .,
+			., .]
+		),
+		Set Display Width( 116 )
+	),
+	New Column( "NN cover - PECI",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Formula( :"Nonnative Cover (Living)"n - :"PECI Cover (Living)"n ),
+		Suppress Eval,
+		Set Display Width( 108 )
+	),
+	New Column( "PECI Cover (Living)",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[20, 7, 0, 0, 0, 51, 3, 0, 0, 1, 53, 35, 1, 0, 6, 54, 15, 1, 0, 3, 27, 9,
+			0, 0, 0, 0, 0, 0, 0, 0, 29, 1, 0, 0, 0, 0, 0, 0, 0, 0, 33, 4, 0, 0, 0,
+			33, 6, 0, 0, 0, 60, 74, 53, 44, 2, 0, 0, 0, 49, 5, 2, 0, 0, 43, 0, 0, 0,
+			0, 32, 54, 0, 0, 9, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 38, 3, 1, 0, 0, 67,
+			16, 0, 0, 1, 55, 58, 29, 37, 23, 4, 0, 3, 27, 41, 2, 0, 12, 40, 0, 0, 0,
+			0, 50, 36, 0, 0, 1, 70, 90, 10, 0, 32, 2, 9, 6, 0, 0, 65, 40, 2, 0, 4,
+			52, 2, 0, 0, 0, 66, 19, 2, 1, 2, 69, 79, 70, 78, 21, 0, 0, 0, ., ., ., .,
+			., .]
+		),
+		Set Display Width( 107 )
+	),
+	New Column( "ONPI Cover (Living)",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0,
+			0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, ., ., ., ., ., .]
+		),
+		Set Display Width( 107 )
+	),
+	New Column( "BRTO Cover (Living)",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 3, 3, 0, 0, 0, 0,
+			0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, ., ., ., ., ., .]
+		),
+		Set Display Width( 107 )
+	),
+	New Column( "Standing litter",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[0, 6, 0, 0, 0, 0, 37, 0, 19, 5, 0, 0, 0, 0, 0, 0, 16, 19, 7, 5, 0, 1, 4,
+			5, 7, 0, 0, 0, 0, 0, 0, 17, 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0,
+			16, 10, 9, 5, 0, 0, 0, 0, 18, 9, 8, 2, 0, 14, 0, 4, 1, 0, 25, 17, 9, 4,
+			0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 17, 10, 13, 3, 0, 2, 0, 1, 0, 0, 18, 20,
+			12, 20, 0, 1, 1, 0, 0, 0, 3, 2, 0, 0, 0, 0, 0, 0, 15, 6, 6, 8, 0, 2, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 5, 0, 7, 16, 6, 2, 0, 21, 16, 13, 12, 0,
+			26, 3, 4, 7, 0, 0, 0, 0, 34, 9, 22, 2, 19, 19, 24, 21, 27, 17]
+		),
+		Set Display Width( 107 )
+	),
+	New Column( "Litter",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[71, 44, 65, 74, 53, 86, 81, 60, 88, 52, 64, 34, 47, 80, 42, 74, 80, 81,
+			77, 76, 70, 41, 51, 74, 67, 70, 60, 52, 75, 37, 81, 65, 65, 82, 69, 62,
+			22, 51, 49, 22, 72, 75, 66, 86, 42, 74, 47, 51, 69, 37, 73, 67, 73, 68,
+			39, 71, 71, 57, 77, 24, 67, 84, 58, 65, 57, 44, 70, 37, 54, 64, 45, 58,
+			49, 80, 43, 65, 80, 74, 68, 69, 60, 73, 52, 58, 51, 53, 59, 43, 73, 37,
+			61, 74, 50, 88, 86, 80, 65, 76, 62, 87, 51, 63, 52, 47, 54, 53, 73, 37,
+			55, 67, 70, 83, 91, 70, 84, 71, 82, 65, 53, 69, 74, 61, 73, 75, 77, 63,
+			86, 75, 54, 64, 73, 73, 61, 35, 66, 42, 68, 58, 57, 53, 53, 82, 55, 65,
+			81, 76, 75, 61, 43, 75, 82, 71, 72, 76, 65]
+		),
+		Set Display Width( 43 )
+	)
+) << Run Formulas;
+Graph Builder(
+	Size( 525, 448 ),
+	Show Control Panel( 0 ),
+	Variables(
+		X( :Year ),
+		Y( :Standing litter ),
+		Y( :Litter ),
+		Overlay( :Treatment )
+	),
+	Elements(
+		Position( 1, 1 ),
+		Bar( X, Y, Legend( 17 ), Error Interval( "Standard Error" ) )
+	),
+	Elements(
+		Position( 1, 2 ),
+		Bar( X, Y, Legend( 18 ), Error Interval( "Standard Error" ) )
+	),
+	SendToReport(
+		Dispatch(
+			{},
+			"400",
+			ScaleBox,
+			{Legend Model(
+				17,
+				Properties(
+					0,
+					{Fill Color( -15113984 )},
+					Item ID( "UnInvaded control", 1 )
+				),
+				Properties(
+					1,
+					{Fill Color( -5682409 )},
+					Item ID( "Invaded control", 1 )
+				),
+				Properties(
+					2,
+					{Fill Color( -40563 )},
+					Item ID( "Cut and herbicide", 1 )
+				),
+				Properties(
+					3,
+					{Fill Color( -29362 )},
+					Item ID( "Herbicide 1x", 1 )
+				),
+				Properties(
+					4,
+					{Fill Color( -13983232 )},
+					Item ID( "Herbicide 2x", 1 )
+				),
+				Properties(
+					5,
+					{Fill Color( -13400487 )},
+					Item ID( "Herbicide 3x", 1 )
+				),
+				Properties(
+					6,
+					{Fill Color( -16442434 )},
+					Item ID( "Manual removal", 1 )
+				),
+				Properties(
+					7,
+					{Fill Color( -9282864 )},
+					Item ID( "Manual removal and herbicide", 1 )
+				),
+				Properties(
+					-1,
+					{Fill Color( -6995852 )},
+					Item ID( "Invaded Control", 1 )
+				)
+			)}
+		),
+		Dispatch( {}, "graph title", TextEditBox, {Set Text( "" )} ),
+		Dispatch( {}, "Y title", TextEditBox, {Set Text( "Standing litter (%)" )} ),
+		Dispatch( {}, "Y 1 title", TextEditBox, {Set Text( "Litter (%)" )} )
+	)
+);
