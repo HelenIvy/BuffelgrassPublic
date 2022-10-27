@@ -1,3 +1,11 @@
+install.packages("glmmTMB")
+citeNatbib("glmmTMB")
+install.packages("car")
+install.packages("MASS")
+install.packages("bbmle")
+install.packages("emmeans")
+install.packages("multcompView")
+install.packages("multcomp")
 #read in data
 
 library(readr)
@@ -21,18 +29,8 @@ DATABGICglmm <- within(DATABGICglmm, {
 summary(DATABGICglmm)
 
 
-#repeated measures(1\SUBJECT) for the random subject effect 
-
 #followed: https://cran.r-project.org/web/packages/glmmTMB/vignettes/glmmTMB.pdf
 
-install.packages("glmmTMB")
-citeNatbib("glmmTMB")
-install.packages("car")
-install.packages("MASS")
-install.packages("bbmle")
-install.packages("emmeans")
-install.packages("multcompView")
-install.packages("multcomp")
 library("glmmTMB")
 require("glmmTMB")
 library("bbmle") ## for AICtab
@@ -44,7 +42,7 @@ theme_set(theme_bw()+
 
 require(glmmTMB)
 require(car)
-mpoi <- glmmTMB(Individuals~TREATMENT * SEASONYEAR 
+mpoi <- glmmTMB(Individuals~TREATMENT  SEASONYEAR 
                                                    + (1|BLOCK)+(1|BLOCKPLOT),
                          data=DATABGICglmm,
                          ziformula=~1,
@@ -62,7 +60,7 @@ AICtab(mpoi,mzinbinom1)
 
 #using car anova https://cran.r-project.org/web/packages/glmmTMB/vignettes/model_evaluation.pdf
 library(car)
-
+Anova(mzinbinom1)
 Anova(mzinbinom1,type="III")
   
 #Post-hoc analysis can be conducted with the emmeans package.
