@@ -2,7 +2,8 @@
 #read in data
 library(readxl)
 library(readxl)
-BG_Richness <- read_excel("Data/BG Richness.xlsx")
+BG_Richness <- read_excel("Data/BG Richness.xlsx", 
+                          sheet = "CUT")
 View(BG_Richness)
 
 
@@ -31,37 +32,19 @@ library(lme4)
 library(redres)
 require(lme4)
 
-
+#Tried all, but no transformations needed.
 m1 <- lmer(NativeRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m1)
-m1b <- lmer(NativeRichness  ~YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m1b)
-m2 <- lmer(LogNativeRichness ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m2)
-m3 <- lmer(SQRTNativeRichness ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m3)
+
 m4 <- lmer(NativePerennialRichness ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m4)
-m5 <- lmer(Logp1NativePerennialRichness ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m5)
-m6 <- lmer(SQRTNativePerennialRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m6)
+
 m7 <- lmer(NativeAnnualRichness ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m7)
-m7b <- lmer(NativeAnnualRichness ~YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m7b)
-m8 <- lmer(Logp1NativeAnnualRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m8)
-m9 <- lmer(SQRTNativeAnnualRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m9)
-m10 <- lmer(NonnativeRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
+
+m10 <- lmer(NonnativeRichness ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
 summary (m10)
-m10b <- lmer(NonnativeRichness  ~YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m10b)
-m11 <- lmer(Logp1NonnativeRichness  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m11)
-m12 <- lmer(SQRTNonnativeRichness     ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATARich)
-summary (m12)
+
 
 library(car)
 require(car)
@@ -219,8 +202,8 @@ cld(marginal,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
 
-marginal = emmeans(m10b,
-                   ~ YEAR)
+marginal = emmeans(m10,
+                   ~ TREATMENT)
 pairs(marginal,
       adjust="tukey")
 cld(marginal,
@@ -228,4 +211,11 @@ cld(marginal,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
 
-
+marginal = emmeans(m10,
+                   ~ YEAR)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
