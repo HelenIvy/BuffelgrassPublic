@@ -2,13 +2,12 @@
 #read in data
 library(readxl)
 
+library(readxl)
+Measured_costs <- read_excel("Data/Measured costs.xlsx")
+View(Measured_costs)
 
-BG_measured_costs_joined <- read_excel("Data/BG measured costs joined.xlsx", 
-                                       sheet = "noCNTorCR")
-View(BG_measured_costs_joined)
 
-
-DATACosts <- BG_measured_costs_joined
+DATACosts <- Measured_costs
 
 # remove na in r - remove rows - na.omit function / option
 ompleterecords <- na.omit(DATACosts)
@@ -18,6 +17,7 @@ ompleterecords <- na.omit(DATACosts)
 
 
   BLOCK<-factor(Block)
+  PLOT<-factor(Plot)
   BLOCKPLOT<-factor(BlockPlot)
   TREATMENT<-factor(Treatment)
   YEAR<-factor(Year)
@@ -26,7 +26,8 @@ ompleterecords <- na.omit(DATACosts)
 #If use YEAR is categorical, if use Year is continous
 summary( DATACosts)
 
-
+# remove na in r - remove rows - na.omit function / option
+ompleterecords <- na.omit(DATACosts)
 #repeated measures(1\SUBJECT) for the random subject effect 
 
 
@@ -38,7 +39,7 @@ summary( DATACosts)
 require(glmmTMB)
 require(car)
 fit_zipoisson <- glmmTMB(Timeandsupplies~TREATMENT*YEAR
-                         + (1|BLOCK)+(1|BLOCKPLOT),
+                         + (1|BLOCK)+(1|PLOT),
                          data=DATACosts,
                          ziformula=~1,
                          family=poisson)
