@@ -1,13 +1,11 @@
 
 #read in data
 library(readxl)
-library(readxl)
-BG_Richness <- read_excel("Data/BG Richness.xlsx", 
-                          sheet = "CUT")
-View(BG_Richness)
+Richness <- read_excel("Data/Richness.xlsx")
+View(Richness)
 
 
-DATARich <- BG_Richness
+DATARich <- Richness
 
 # remove na in r - remove rows - na.omit function / option
 ompleterecords <- na.omit(DATARich)

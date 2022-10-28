@@ -9,10 +9,10 @@ install.packages("multcomp")
 #read in data
 
 library(readr)
-Invaded_control_plots_BG_COUNT_treated <- read_csv("Data/Invaded control plots BG COUNT treated.csv")
-View(Invaded_control_plots_BG_COUNT_treated)
+Individuals_INV_CNTRL <- read_csv("Data/Individuals INV CNTRL.csv")
+View(Individuals_INV_CNTRL)
 
-DATABGICglmm <- Invaded_control_plots_BG_COUNT_treated
+DATABGICglmm <- Individuals_INV_CNTRL
 
 
 #Set categorical factors for main effects:
