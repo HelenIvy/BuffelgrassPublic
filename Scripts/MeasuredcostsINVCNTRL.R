@@ -1,11 +1,10 @@
 
-#read in data
 library(readxl)
-Measured_costsINV_CNTL <- read_excel("Data/Measured costsINV CNTL.xlsx")
-View(Measured_costsINV_CNTL)
+MeasuredcostsINVCNTL <- read_excel("Data/MeasuredcostsINVCNTL.xlsx")
+View(MeasuredcostsINVCNTL)
 
 
-DATACostsIC <- Measured_costsINV_CNTL
+DATACostsIC <- MeasuredcostsINVCNTL
 
 # remove na in r - remove rows - na.omit function / option
 ompleterecords <- na.omit(DATACostsIC)
@@ -30,12 +29,16 @@ library(redres)
 require(lme4)
 
 
-#NORMAL transformation looks ok
+#M3 LOG+1TRANSFORM IS BEST
 m1 <- lmer(Measuredcosts ~TREATMENT*YEAR + (1|PLOT)+(1|BLOCK), data =  DATACostsIC)
 summary (m1)
 Anova(m1)
-
-
+m2 <- lmer(SQRTmcosts ~TREATMENT*YEAR + (1|PLOT)+(1|BLOCK), data =  DATACostsIC)
+summary (m2)
+Anova(m2)
+m3 <- lmer(LOG1mcosts ~TREATMENT*YEAR + (1|PLOT)+(1|BLOCK), data =  DATACostsIC)
+summary (m3)
+Anova(m3)
 #residuals m1;
 
 rc_resids <- compute_redres(m1)
@@ -52,7 +55,14 @@ sc_resids <- compute_redres(m2, type = "std_cond")
 resids <- data.frame(DATACostsIC, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m2, type = "std_cond")
+#residuals m3; BEST
 
+rc_resids <- compute_redres(m3)
+pm_resids <- compute_redres(m3, type = "pearson_mar")
+sc_resids <- compute_redres(m3, type = "std_cond")
+resids <- data.frame(DATACostsIC, rc_resids, pm_resids, sc_resids)
+head(resids) 
+plot_redres(m3, type = "std_cond")
 #I ended up only including time and supplies and not hours in the MS because they were similar graphs;
 
 #Post-hoc analysis can be conducted with the emmeans package.

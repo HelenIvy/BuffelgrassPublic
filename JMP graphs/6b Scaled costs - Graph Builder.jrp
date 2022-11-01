@@ -1,175 +1,192 @@
-﻿New Table( "Scaled costs",
-	Add Rows( 64 ),
+﻿New Table( "noCNT",
+	Add Rows( 48 ),
+	New Script(
+		"Source",
+		Open(
+			"$DOCUMENTS/GitHub/Buffelgrass/Data/Scaled costs incl assumptions.xlsx",
+			Worksheets( "noCNT" ),
+			Use for all sheets( 1 ),
+			Concatenate Worksheets( 0 ),
+			Create Concatenation Column( 0 ),
+			Worksheet Settings(
+				1,
+				Has Column Headers( 1 ),
+				Number of Rows in Headers( 1 ),
+				Headers Start on Row( 1 ),
+				Data Starts on Row( 2 ),
+				Data Starts on Column( 1 ),
+				Data Ends on Row( 0 ),
+				Data Ends on Column( 0 ),
+				Replicated Spanned Rows( 1 ),
+				Replicated Spanned Headers( 0 ),
+				Suppress Hidden Rows( 1 ),
+				Suppress Hidden Columns( 1 ),
+				Suppress Empty Columns( 1 ),
+				Treat as Hierarchy( 0 ),
+				Multiple Series Stack( 0 ),
+				Import Cell Colors( 0 ),
+				Limit Column Detect( 0 ),
+				Column Separator String( "-" )
+			)
+		)
+	),
+	New Column( "Year",
+		Character,
+		"Nominal",
+		Set Values(
+			{"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total"}
+		)
+	),
 	New Column( "Treatment",
 		Character,
 		"Nominal",
 		Set Selected,
 		Set Values(
-			{"Uninfested control", "Infested control", "Pull", "Pull and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
-			"Uninfested control", "Infested control", "Pull", "Pull and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
-			"Uninfested control", "Infested control", "Pull", "Pull and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
-			"Uninfested control", "Infested control", "Pull", "Pull and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
-			"Uninfested control", "Infested control", "Pull", "Pull and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
-			"Uninfested control", "Infested control", "Pull", "Pull and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
-			"Uninfested control", "Infested control", "Pull", "Pull and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
-			"Uninfested control", "Infested control", "Pull", "Pull and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x"}
-		),
-		Set Display Width( 79 )
+			{"Cut and herbicide", "Cut and herbicide", "Cut and herbicide",
+			"Cut and herbicide", "Cut and herbicide", "Cut and herbicide",
+			"Cut and herbicide", "Cut and herbicide", "Herbicide 1x", "Herbicide 1x",
+			"Herbicide 1x", "Herbicide 1x", "Herbicide 1x", "Herbicide 1x",
+			"Herbicide 1x", "Herbicide 1x", "Herbicide 2x", "Herbicide 2x",
+			"Herbicide 2x", "Herbicide 2x", "Herbicide 2x", "Herbicide 2x",
+			"Herbicide 2x", "Herbicide 2x", "Herbicide 3x", "Herbicide 3x",
+			"Herbicide 3x", "Herbicide 3x", "Herbicide 3x", "Herbicide 3x",
+			"Herbicide 3x", "Herbicide 3x", "Manual removal", "Manual removal",
+			"Manual removal", "Manual removal", "Manual removal", "Manual removal",
+			"Manual removal", "Manual removal", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide"}
+		)
 	),
-	New Column( "Treatment 2",
+	New Column( "Code",
 		Character,
 		"Nominal",
 		Set Values(
-			{"Uninfested control", "Infested control", "Manual control",
-			"Manual control and herbicide", "Cut and herbicide", "Herbicide 1x",
-			"Herbicide 2x", "Herbicide 3x", "Uninfested control", "Infested control",
-			"Manual control", "Manual control and herbicide", "Cut and herbicide",
-			"Herbicide 1x", "Herbicide 2x", "Herbicide 3x", "Uninfested control",
-			"Infested control", "Manual control", "Manual control and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
-			"Uninfested control", "Infested control", "Manual control",
-			"Manual control and herbicide", "Cut and herbicide", "Herbicide 1x",
-			"Herbicide 2x", "Herbicide 3x", "Uninfested control", "Infested control",
-			"Manual control", "Manual control and herbicide", "Cut and herbicide",
-			"Herbicide 1x", "Herbicide 2x", "Herbicide 3x", "Uninfested control",
-			"Infested control", "Manual control", "Manual control and herbicide",
-			"Cut and herbicide", "Herbicide 1x", "Herbicide 2x", "Herbicide 3x",
-			"Uninfested control", "Infested control", "Manual control",
-			"Manual control and herbicide", "Cut and herbicide", "Herbicide 1x",
-			"Herbicide 2x", "Herbicide 3x", "Uninfested control", "Infested control",
-			"Manual control", "Manual control and herbicide", "Cut and herbicide",
-			"Herbicide 1x", "Herbicide 2x", "Herbicide 3x"}
-		),
-		Set Display Width( 126 )
+			{"CH", "CH", "CH", "CH", "CH", "CH", "CH", "CH", "H1x", "H1x", "H1x",
+			"H1x", "H1x", "H1x", "H1x", "H1x", "H1x1x", "H1x1x", "H1x1x", "H1x1x",
+			"H1x1x", "H1x1x", "H1x1x", "H1x1x", "H2x1x", "H2x1x", "H2x1x", "H2x1x",
+			"H2x1x", "H2x1x", "H2x1x", "H2x1x", "P", "P", "P", "P", "P", "P", "P",
+			"P", "PH", "PH", "PH", "PH", "PH", "PH", "PH", "PH"}
+		)
 	),
-	New Column( "Cost ($)",
+	New Column( "scalingfactor",
 		Numeric,
 		"Continuous",
-		Format( "Best", 12 ),
+		Format( "Best", 15 ),
 		Set Values(
-			[21.77276172, 9041.263496, 15277.58601, 6579.051856, 10260.62564,
-			7106.211516, 5475.131351, 2438.028476, 0.136079761, 56.50789685,
-			262.2361625, 328.7649803, 332.320504, 245.9049157, 316.3071022,
-			498.816303, 0.544319043, 226.0315874, 545.5446502, 446.6949214,
-			519.647016, 375.3446629, 413.6434088, 535.4052119, 1.088638086,
-			452.0631748, 923.2893003, 603.9348428, 769.4156986, 547.9309925,
-			543.4251509, 584.1904238, 5.443190429, 2260.315874, 3945.246502,
-			1861.854214, 2767.56516, 1928.621629, 1581.679088, 974.472119,
-			10.88638086, 4520.631748, 7722.693003, 3434.253428, 5265.251986,
-			3654.484925, 2879.496509, 1462.324238, 108.8638086, 45206.31748,
-			75716.73003, 31737.43928, 50223.61486, 34720.02425, 26240.21009,
-			10243.66238, 217.7276172, 90412.63496, 151265.6601, 63185.42356,
-			100177.3514, 69237.29016, 52196.55851, 20000.70476]
-		),
-		Set Display Width( 57 )
+			[1, 4, 8, 40, 80, 160, 800, 1600, 1, 4, 8, 40, 80, 160, 800, 1600, 1, 4,
+			8, 40, 80, 160, 800, 1600, 1, 4, 8, 40, 80, 160, 800, 1600, 1, 4, 8, 40,
+			80, 160, 800, 1600, 1, 4, 8, 40, 80, 160, 800, 1600]
+		)
 	),
-	New Column( "Area (m2)",
+	New Column( "m2",
 		Numeric,
 		"Continuous",
-		Format( "Best", 12 ),
+		Format( "Best", 15 ),
 		Set Values(
-			[4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 25, 25, 25, 25, 25, 25,
-			25, 25, 100, 100, 100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200,
-			200, 200, 200, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 2000,
-			2000, 2000, 2000, 2000, 2000, 2000, 2000, 20000, 20000, 20000, 20000,
-			20000, 20000, 20000, 20000, 40000, 40000, 40000, 40000, 40000, 40000,
-			40000, 40000]
-		),
-		Set Display Width( 60 )
+			[25, 100, 200, 1000, 2000, 4000, 20000, 40000, 25, 100, 200, 1000, 2000,
+			4000, 20000, 40000, 25, 100, 200, 1000, 2000, 4000, 20000, 40000, 25,
+			100, 200, 1000, 2000, 4000, 20000, 40000, 25, 100, 200, 1000, 2000, 4000,
+			20000, 40000, 25, 100, 200, 1000, 2000, 4000, 20000, 40000]
+		)
 	),
-	New Column( "scale #",
+	New Column( "Areahectares",
 		Numeric,
 		"Continuous",
-		Format( "Best", 12 ),
+		Format( "Best", 15 ),
 		Set Values(
-			[160, 160, 160, 160, 160, 160, 160, 160, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4,
-			4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 40, 40, 40, 40, 40, 40, 40, 40,
-			80, 80, 80, 80, 80, 80, 80, 80, 800, 800, 800, 800, 800, 800, 800, 800,
-			1600, 1600, 1600, 1600, 1600, 1600, 1600, 1600]
-		),
-		Set Display Width( 43 )
+			[0.0025, 0.01, 0.02, 0.1, 0.2, 0.4, 2, 4, 0.0025, 0.01, 0.02, 0.1, 0.2,
+			0.4, 2, 4, 0.0025, 0.01, 0.02, 0.1, 0.2, 0.4, 2, 4, 0.0025, 0.01, 0.02,
+			0.1, 0.2, 0.4, 2, 4, 0.0025, 0.01, 0.02, 0.1, 0.2, 0.4, 2, 4, 0.0025,
+			0.01, 0.02, 0.1, 0.2, 0.4, 2, 4]
+		)
 	),
-	Set Row States(
-		[6, 6, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 6,
-		6, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 6, 6, 0,
-		0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0]
+	New Column( "TotalCost2H",
+		Numeric,
+		"Continuous",
+		Format( "Fixed Dec", 15, 2 ),
+		Set Values(
+			[318.5903738, 425.1614951, 567.25632359335, 1704.014951, 3124.963236,
+			5966.859805, 28702.03236, 57120.99805, 230.6106731, 284.4426922,
+			356.218717811024, 930.4269224, 1648.187178, 3083.70769, 14567.87178,
+			28923.0769, 319.2651717, 383.8606868, 469.988040343141, 1159.006868,
+			2020.280403, 3742.827474, 17523.20403, 34748.67474, 521.3118376,
+			554.0473504, 597.694700801259, 946.873504, 1383.347008, 2256.294016,
+			9239.87008, 17969.34016, 214.1947361, 328.7789443, 481.557888533333,
+			1703.789443, 3231.578885, 6287.157771, 30731.78885, 61287.57771,
+			326.2944374, 394.3777497, 485.15549945875, 1211.377497, 2119.154995,
+			3934.709989, 18459.14995, 36614.69989]
+		)
 	)
 ) << Run Formulas;
 Graph Builder(
-	Size( 563, 475 ),
+	Size( 528, 435 ),
 	Show Control Panel( 0 ),
 	Legend Position( "Inside Left" ),
 	Show Title( 0 ),
 	Show Footer( 0 ),
-	Variables( X( :"Area (m2)"n ), Y( :"Cost ($)"n ), Overlay( :Treatment ) ),
-	Elements( Points( X, Y, Legend( 23 ) ), Smoother( X, Y, Legend( 24 ) ) ),
+	Variables( X( :Areahectares ), Y( :TotalCost2H ), Overlay( :Treatment ) ),
+	Elements( Points( X, Y, Legend( 31 ) ), Smoother( X, Y, Legend( 32 ) ) ),
 	SendToReport(
 		Dispatch(
 			{},
-			"Area (m2)",
+			"Areahectares",
 			ScaleBox,
-			{Scale( "Log" ), Min( 20 ), Max( 53730.9835743882 ), Inc( 1 ),
-			Minor Ticks( 1 )}
+			{Scale( "Log" ), Format( "Best", 6 ), Min( 0.002 ),
+			Max( 5.37309835743882 ), Inc( 1 ), Minor Ticks( 1 )}
 		),
 		Dispatch(
 			{},
-			"Cost ($)",
+			"TotalCost2H",
 			ScaleBox,
-			{Scale( "Log" ), Min( 200 ), Max( 213958.039571423 ), Inc( 1 ),
-			Minor Ticks( 1 )}
+			{Scale( "Log" ), Format( "Best", 9 ), Min( 185.829366720504 ),
+			Max( 83447.9376873299 ), Inc( 1 ), Minor Ticks( 1 )}
 		),
 		Dispatch(
 			{},
 			"400",
 			ScaleBox,
 			{Legend Model(
-				24,
-				Level Name( 4, "Manual control", Item ID( "Pull", 1 ) ),
-				Level Name(
-					5,
-					"Manual control and herbicide",
-					Item ID( "Pull and herbicide", 1 )
-				),
+				32,
 				Properties(
 					0,
-					{Line Color( -15113984 ), Fill Color( -15113984 )},
+					{Line Color( -15113984 )},
 					Item ID( "Cut and herbicide", 1 )
 				),
 				Properties(
 					1,
-					{Line Color( -5682409 ), Fill Color( -5682409 )},
+					{Line Color( -5682409 )},
 					Item ID( "Herbicide 1x", 1 )
 				),
 				Properties(
 					2,
-					{Line Color( -40563 ), Fill Color( -40563 )},
+					{Line Color( -40563 )},
 					Item ID( "Herbicide 2x", 1 )
 				),
 				Properties(
 					3,
-					{Line Color( -29362 ), Fill Color( -29362 )},
+					{Line Color( -29362 )},
 					Item ID( "Herbicide 3x", 1 )
 				),
 				Properties(
 					4,
-					{Line Color( -13983232 ), Fill Color( -13983232 )},
-					Item ID( "Pull", 1 )
+					{Line Color( -13983232 )},
+					Item ID( "Manual removal", 1 )
 				),
 				Properties(
 					5,
-					{Line Color( -13400487 ), Fill Color( -13400487 )},
-					Item ID( "Pull and herbicide", 1 )
+					{Line Color( -13400487 )},
+					Item ID( "Manual removal and herbicide", 1 )
 				)
 			)}
 		),
+		Dispatch( {}, "X title", TextEditBox, {Set Text( "Area (hectares)" )} ),
 		Dispatch( {}, "Y title", TextEditBox, {Set Text( "Total cost ($)" )} )
 	)
 );

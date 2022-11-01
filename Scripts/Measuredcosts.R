@@ -1,12 +1,11 @@
-
+update.packages(ask = FALSE, checkBuilt = TRUE)
 #read in data
 
 library(readxl)
-Measured_costs <- read_excel("Data/Measured costs.xlsx")
-View(Measured_costs)
+Measuredcosts <- read_excel("Data/Measuredcosts.xlsx")
+View(Measuredcosts)
 
-
-DATACosts <- Measured_costs
+DATACosts <- Measuredcosts
 
 # remove na in r - remove rows - na.omit function / option
 ompleterecords <- na.omit(DATACosts)
@@ -29,30 +28,39 @@ summary( DATACosts)
 
 #for examples see https://bookdown.org/ndphillips/YaRrr/repeated-measures-anova-using-the-lme4-package.html and https://stats.stackexchange.com/questions/58745/using-lmer-for-repeated-measures-linear-mixed-effect-model
 # fits an lmer model
+library(readr)
 library(redres)
 require(lme4)
 require(pscl)
 
-
-m2c <- lmer(SQRTCosts ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACosts)
+m1c <- lmer(Measuredcosts ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACosts)
+summary (m1c)
+m2c <- lmer(SQRTmcosts ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACosts)
 summary (m2c)
 
 
 
 library(car)
 require(car)
-
+Anova(m1c)
 Anova(m2c)
 
 
 #studentized residuals
-# fits an lmer model
-library(lme4)
 # Loads the library
+install.packages("redres")
+install.packages("scales") 
 library(redres)
 require(lme4)
 
-
+#residuals m1c;
+#looks bad;
+rc_resids <- compute_redres(m1c)
+pm_resids <- compute_redres(m1c, type = "pearson_mar")
+sc_resids <- compute_redres(m1c, type = "std_cond")
+resids <- data.frame(DATACosts, rc_resids, pm_resids, sc_resids)
+head(resids) 
+plot_redres(m1c, type = "std_cond")
 
 #residuals m2c;
 #looks good;
