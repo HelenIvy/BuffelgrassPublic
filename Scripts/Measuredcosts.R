@@ -29,25 +29,8 @@ summary( DATACosts)
 
 #for examples see https://bookdown.org/ndphillips/YaRrr/repeated-measures-anova-using-the-lme4-package.html and https://stats.stackexchange.com/questions/58745/using-lmer-for-repeated-measures-linear-mixed-effect-model
 # fits an lmer model
-library(lme4)
-# Loads the library
 library(redres)
 require(lme4)
-library(glmmADMB)
-require(glmmADMB)
-install.packages("pscl")
-install.packages("car")
-install.packages("rcompanion")
-install.packages("multcompView")
-install.packages("rcompanion")
-install.packages("emmeans")
-install.packages("R2admb")
-install.packages("glmmADMB", 
-                 repos=c("http://glmmadmb.r-forge.r-project.org/repos",
-                         getOption("repos")),
-                 type="source")
-
-
 require(pscl)
 
 
@@ -68,24 +51,7 @@ library(lme4)
 # Loads the library
 library(redres)
 require(lme4)
-#residuals for m1c - looks good!;
 
-# computes the default residuals (raw conditional)
-rc_resids <- compute_redres(m1c)
-
-# computes the Pearson marginal residuals
-pm_resids <- compute_redres(m1c, type = "pearson_mar")
-
-# computes the studentized conditional residuals
-sc_resids <- compute_redres(m1c, type = "std_cond")
-
-# puts the residuals in a data frame with observed response and prints the first six rows
-resids <- data.frame(DATACosts, rc_resids, pm_resids, sc_resids)
-head(resids) 
-#plot_redres creates a plot (using ggplot2) of the residuals versus the fitted values given a model and a specified residual type. All residual types listed for redres work with plot_redres.
-
-# creates a plot of the conditional studentized residuals versus the fitted values
-plot_redres(m1c, type = "std_cond")
 
 
 #residuals m2c;
@@ -109,6 +75,24 @@ require(multcomp)
 
 marginal = emmeans(m2c,
                    ~ TREATMENT*YEAR)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+
+marginal = emmeans(m2c,
+                   ~ TREATMENT)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+
+marginal = emmeans(m2c,
+                   ~ YEAR)
 pairs(marginal,
       adjust="tukey")
 cld(marginal,
