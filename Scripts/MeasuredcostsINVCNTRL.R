@@ -74,8 +74,8 @@ library(emmeans)
 require(emmeans)
 
 
-marginal = emmeans(m1,
-                   ~ TREATMENT)
+marginal = emmeans(m3,
+                   ~ TREATMENT*YEAR)
 pairs(marginal,
       adjust="tukey")
 cld(marginal,
@@ -83,7 +83,7 @@ cld(marginal,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
 
-marginal = emmeans(m1,
+marginal = emmeans(m3,
                    ~ YEAR)
 pairs(marginal,
       adjust="tukey")

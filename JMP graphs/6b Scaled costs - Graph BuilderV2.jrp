@@ -1,0 +1,177 @@
+﻿New Table( "Untitled 6",
+	Add Rows( 48 ),
+	New Column( "Year",
+		Character,
+		"Nominal",
+		Set Selected,
+		Set Values(
+			{"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total",
+			"Total", "Total", "Total", "Total", "Total", "Total", "Total", "Total"}
+		)
+	),
+	New Column( "Treatment",
+		Character( 28 ),
+		"Nominal",
+		Set Values(
+			{"Cut and herbicide", "Cut and herbicide", "Cut and herbicide",
+			"Cut and herbicide", "Cut and herbicide", "Cut and herbicide",
+			"Cut and herbicide", "Cut and herbicide", "Herbicide 1x", "Herbicide 1x",
+			"Herbicide 1x", "Herbicide 1x", "Herbicide 1x", "Herbicide 1x",
+			"Herbicide 1x", "Herbicide 1x", "Herbicide 2x", "Herbicide 2x",
+			"Herbicide 2x", "Herbicide 2x", "Herbicide 2x", "Herbicide 2x",
+			"Herbicide 2x", "Herbicide 2x", "Herbicide 3x", "Herbicide 3x",
+			"Herbicide 3x", "Herbicide 3x", "Herbicide 3x", "Herbicide 3x",
+			"Herbicide 3x", "Herbicide 3x", "Manual removal", "Manual removal",
+			"Manual removal", "Manual removal", "Manual removal", "Manual removal",
+			"Manual removal", "Manual removal", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide", "Manual removal and herbicide",
+			"Manual removal and herbicide"}
+		)
+	),
+	New Column( "Code",
+		Character( 16 ),
+		"Nominal",
+		Set Values(
+			{"CH", "CH", "CH", "CH", "CH", "CH", "CH", "CH", "H1x", "H1x", "H1x",
+			"H1x", "H1x", "H1x", "H1x", "H1x", "H1x1x", "H1x1x", "H1x1x", "H1x1x",
+			"H1x1x", "H1x1x", "H1x1x", "H1x1x", "H2x1x", "H2x1x", "H2x1x", "H2x1x",
+			"H2x1x", "H2x1x", "H2x1x", "H2x1x", "P", "P", "P", "P", "P", "P", "P",
+			"P", "PH", "PH", "PH", "PH", "PH", "PH", "PH", "PH"}
+		)
+	),
+	New Column( "Totalcostestimateincl2hrtravel",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[316.3276365, 416.110546, 549.1544254, 1613.50546, 2943.944254,
+			5604.821841, 27224.45224, 54099.31586, 226.5642002, 268.2568009,
+			323.8469351, 768.5680091, 1324.469351, 2436.272036, 11469.66885,
+			22698.87597, 315.1964153, 367.5856613, 437.4379892, 996.2566128,
+			1694.779892, 3091.826451, 14442.82974, 28552.99999, 519.3458565,
+			546.183426, 581.9668519, 868.2342596, 1226.068519, 1941.737038,
+			7756.543756, 14984.7958, 211.2293456, 316.9173822, 457.8347644,
+			1585.173822, 2994.347644, 5812.695289, 28711.7699, 57177.08111,
+			323.8855181, 384.7420724, 465.8841448, 1115.020724, 1926.441448,
+			3549.282896, 16734.86966, 33125.56828]
+		)
+	),
+	New Column( "scalingfactor",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[1, 4, 8, 40, 80, 160, 800, 1600, 1, 4, 8, 40, 80, 160, 800, 1600, 1, 4,
+			8, 40, 80, 160, 800, 1600, 1, 4, 8, 40, 80, 160, 800, 1600, 1, 4, 8, 40,
+			80, 160, 800, 1600, 1, 4, 8, 40, 80, 160, 800, 1600]
+		)
+	),
+	New Column( "m2",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[25, 100, 200, 1000, 2000, 4000, 20000, 40000, 25, 100, 200, 1000, 2000,
+			4000, 20000, 40000, 25, 100, 200, 1000, 2000, 4000, 20000, 40000, 25,
+			100, 200, 1000, 2000, 4000, 20000, 40000, 25, 100, 200, 1000, 2000, 4000,
+			20000, 40000, 25, 100, 200, 1000, 2000, 4000, 20000, 40000]
+		)
+	),
+	New Column( "Areahectares",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[0.0025, 0.01, 0.02, 0.1, 0.2, 0.4, 2, 4, 0.0025, 0.01, 0.02, 0.1, 0.2,
+			0.4, 2, 4, 0.0025, 0.01, 0.02, 0.1, 0.2, 0.4, 2, 4, 0.0025, 0.01, 0.02,
+			0.1, 0.2, 0.4, 2, 4, 0.0025, 0.01, 0.02, 0.1, 0.2, 0.4, 2, 4, 0.0025,
+			0.01, 0.02, 0.1, 0.2, 0.4, 2, 4]
+		)
+	),
+	New Column( "TotalCost2H",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[316.3276365, 416.110546, 549.1544254, 1613.50546, 2943.944254,
+			5604.821841, 26891.84254, 53500.61841, 234.377543, 299.510172,
+			386.3536774, 1081.10172, 1949.536774, 3686.406881, 17581.36774,
+			34950.06881, 365.6484703, 441.7938811, 543.3210955, 1355.538811,
+			2370.810955, 4401.355243, 20645.70955, 40951.15243, 562.0850487,
+			589.5401948, 626.1470564, 919.0019485, 1285.070564, 2017.207794,
+			7874.305636, 15195.67794, 246.6996843, 458.7987372, 741.5974744,
+			3003.987372, 5831.974744, 11487.94949, 56735.74744, 113295.4949,
+			374.478857, 459.515428, 572.8975226, 1479.95428, 2613.775226,
+			4881.417118, 23022.55226, 45698.97118]
+		)
+	)
+) << Run Formulas;
+Graph Builder(
+	Size( 528, 435 ),
+	Show Control Panel( 0 ),
+	Legend Position( "Inside Left" ),
+	Show Title( 0 ),
+	Variables( X( :Areahectares ), Y( :TotalCost2H ), Overlay( :Treatment ) ),
+	Elements( Points( X, Y, Legend( 6 ) ), Smoother( X, Y, Legend( 7 ) ) ),
+	SendToReport(
+		Dispatch(
+			{},
+			"Areahectares",
+			ScaleBox,
+			{Scale( "Log" ), Format( "Best", 6 ), Min( 0.002 ),
+			Max( 5.37309835743882 ), Inc( 1 ), Minor Ticks( 1 )}
+		),
+		Dispatch(
+			{},
+			"TotalCost2H",
+			ScaleBox,
+			{Scale( "Log" ), Min( 200 ), Max( 200000 ), Inc( 1 ), Minor Ticks( 1 )}
+		),
+		Dispatch(
+			{},
+			"400",
+			ScaleBox,
+			{Legend Model(
+				7,
+				Properties(
+					0,
+					{Line Color( -15113984 ), Fill Color( -15113984 )},
+					Item ID( "Cut and herbicide", 1 )
+				),
+				Properties(
+					1,
+					{Line Color( -5682409 ), Fill Color( -5682409 )},
+					Item ID( "Herbicide 1x", 1 )
+				),
+				Properties(
+					2,
+					{Line Color( -40563 ), Fill Color( -40563 )},
+					Item ID( "Herbicide 2x", 1 )
+				),
+				Properties(
+					3,
+					{Line Color( -29362 ), Fill Color( -29362 )},
+					Item ID( "Herbicide 3x", 1 )
+				),
+				Properties(
+					4,
+					{Line Color( -13983232 ), Fill Color( -13983232 )},
+					Item ID( "Manual removal", 1 )
+				),
+				Properties(
+					5,
+					{Line Color( -13400487 ), Fill Color( -13400487 )},
+					Item ID( "Manual removal and herbicide", 1 )
+				)
+			)}
+		),
+		Dispatch( {}, "X title", TextEditBox, {Set Text( "Area (hectares)" )} ),
+		Dispatch( {}, "Y title", TextEditBox, {Set Text( "Total cost ($)" )} )
+	)
+);
