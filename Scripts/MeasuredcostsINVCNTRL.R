@@ -1,10 +1,10 @@
 
 library(readxl)
-MeasuredcostsINVCNTL <- read_excel("Data/MeasuredcostsINVCNTL.xlsx")
-View(MeasuredcostsINVCNTL)
 
+MeasuredCostsINVCNTRL <- read_csv("Data/MeasuredCostsINVCNTRL.csv")
+View(MeasuredCostsINVCNTRL)
 
-DATACostsIC <- MeasuredcostsINVCNTL
+DATACostsIC <- MeasuredCostsINVCNTRL
 
 # remove na in r - remove rows - na.omit function / option
 ompleterecords <- na.omit(DATACostsIC)
@@ -27,10 +27,11 @@ summary(DATACostsIC)
 
 library(redres)
 require(lme4)
+library(car)
 
 
 #M3 LOG+1TRANSFORM IS BEST
-m1 <- lmer(Measuredcosts ~TREATMENT*YEAR + (1|PLOT)+(1|BLOCK), data =  DATACostsIC)
+m1 <- lmer(Measured_costs ~TREATMENT*YEAR + (1|PLOT)+(1|BLOCK), data =  DATACostsIC)
 summary (m1)
 Anova(m1)
 m2 <- lmer(SQRTmcosts ~TREATMENT*YEAR + (1|PLOT)+(1|BLOCK), data =  DATACostsIC)
