@@ -12,7 +12,13 @@ library(readr)
 Individuals_INV_CNTRL <- read_csv("Data/Individuals INV CNTRL.csv")
 View(Individuals_INV_CNTRL)
 
-DATABGICglmm <- Individuals_INV_CNTRL
+#READ IN DATA WITHOUT FALL 2020
+
+library(readr)
+Individuals_INV_CNTRLnoFALL20 <- read_csv("Data/Individuals INV CNTRLnoFALL20.csv")
+View(Individuals_INV_CNTRLnoFALL20)
+
+DATABGICglmm <- Individuals_INV_CNTRLnoFALL20
 
 
 #Set categorical factors for main effects:
@@ -42,26 +48,26 @@ theme_set(theme_bw()+
 
 require(glmmTMB)
 require(car)
-mpoi <- glmmTMB(Individuals~TREATMENT  SEASONYEAR 
+mpoi2 <- glmmTMB(Individuals~TREATMENT + SEASONYEAR 
                                                    + (1|BLOCK)+(1|BLOCKPLOT),
                          data=DATABGICglmm,
                          ziformula=~1,
                          family=poisson)
 
-summary(mpoi)
+summary(mpoi2)
 
-mzinbinom1 <- update(mpoi,family=nbinom1)
-summary(mzinbinom1)
+mzinbinom1b <- update(mpoi2,family=nbinom1)
+summary(mzinbinom1b)
 
 
 
-AICtab(mpoi,mzinbinom1)
-#best and only one to converge is mzinbinom1
+AICtab(mpoi2,mzinbinom1b)
+#best is mzinbinom1b
 
 #using car anova https://cran.r-project.org/web/packages/glmmTMB/vignettes/model_evaluation.pdf
 library(car)
-Anova(mzinbinom1)
-Anova(mzinbinom1,type="III")
+Anova(mzinbinom1b)
+Anova(mzinbinom1b,type="III")
   
 #Post-hoc analysis can be conducted with the emmeans package.
 library(multcompView)
@@ -73,7 +79,7 @@ require(emmeans)
 
 
 
-marginal = emmeans(mzinbinom1,
+marginal = emmeans(mzinbinom1b,
                    ~ SEASONYEAR)
 pairs(marginal,
       adjust="tukey")

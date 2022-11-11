@@ -1,11 +1,12 @@
 update.packages(ask = FALSE, checkBuilt = TRUE)
 #read in data
 
-library(readxl)
-Measuredcosts <- read_excel("Data/Measuredcosts.xlsx")
-View(Measuredcosts)
 
-DATACosts <- Measuredcosts
+library(readr)
+MeasuredCostsFull <- read_csv("Data/MeasuredCostsFull.csv")
+View(MeasuredCostsFull)
+
+DATACosts <- MeasuredCostsFull
 
 # remove na in r - remove rows - na.omit function / option
 ompleterecords <- na.omit(DATACosts)
@@ -33,11 +34,12 @@ library(redres)
 require(lme4)
 require(pscl)
 
-m1c <- lmer(Measuredcosts ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACosts)
+m1c <- lmer(Measured_costs ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACosts)
 summary (m1c)
 m2c <- lmer(SQRTmcosts ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACosts)
 summary (m2c)
-
+m3c <- lmer(LOG1mcosts ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACosts)
+summary (m3c)
 
 
 library(car)
@@ -52,9 +54,10 @@ install.packages("redres")
 install.packages("scales") 
 library(redres)
 require(lme4)
+require(ggplot2)
 
 #residuals m1c;
-#looks bad;
+#looks bad <;
 rc_resids <- compute_redres(m1c)
 pm_resids <- compute_redres(m1c, type = "pearson_mar")
 sc_resids <- compute_redres(m1c, type = "std_cond")
@@ -63,13 +66,23 @@ head(resids)
 plot_redres(m1c, type = "std_cond")
 
 #residuals m2c;
-#looks good;
+#looks OK;
 rc_resids <- compute_redres(m2c)
 pm_resids <- compute_redres(m2c, type = "pearson_mar")
 sc_resids <- compute_redres(m2c, type = "std_cond")
 resids <- data.frame(DATACosts, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m2c, type = "std_cond")
+
+#residuals m3c;
+#looks >;
+rc_resids <- compute_redres(m3c)
+pm_resids <- compute_redres(m3c, type = "pearson_mar")
+sc_resids <- compute_redres(m3c, type = "std_cond")
+resids <- data.frame(DATACosts, rc_resids, pm_resids, sc_resids)
+head(resids) 
+
+plot_redres(m3c, type = "std_cond")
 
 
 library(emmeans)

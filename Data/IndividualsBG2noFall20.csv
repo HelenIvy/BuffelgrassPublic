@@ -167,34 +167,6 @@
 2,2,bp2_2,PH,Manual removal and herbicide,"2,2,PH",Spring2022,2022,Spring,8,2.828427125,1.903089987
 3,3,bp3_3,PH,Manual removal and herbicide,"3,3,PH",Spring2022,2022,Spring,3,1.732050808,1.477121255
 4,1,bp4_1,PH,Manual removal and herbicide,"4,1,PH",Spring2022,2022,Spring,16,4,2.204119983
-1,4,bp1_4,CH,Cut and herbicide,"1,4,CH",Fall2020,2020,Fall,0,0,0
-2,6,bp2_6,CH,Cut and herbicide,"2,6,CH",Fall2020,2020,Fall,0,0,0
-3,6,bp3_6,CH,Cut and herbicide,"3,6,CH",Fall2020,2020,Fall,0,0,0
-4,4,bp4_4,CH,Cut and herbicide,"4,4,CH",Fall2020,2020,Fall,0,0,0
-1,6,bp1_6,CR,Uninvaded control,"1,6,CR",Fall2020,2020,Fall,0,0,0
-2,1,bp2_1,CR,Uninvaded control,"2,1,CR",Fall2020,2020,Fall,0,0,0
-3,1,bp3_1,CR,Uninvaded control,"3,1,CR",Fall2020,2020,Fall,0,0,0
-4,3,bp4_3,CR,Uninvaded control,"4,3,CR",Fall2020,2020,Fall,0,0,0
-1,5,bp1_5,H1x,Herbicide 1x,"1,5,H1x",Fall2020,2020,Fall,0,0,0
-2,3,bp2_3,H1x,Herbicide 1x,"2,3,H1x",Fall2020,2020,Fall,0,0,0
-3,4,bp3_4,H1x,Herbicide 1x,"3,4,H1x",Fall2020,2020,Fall,0,0,0
-4,6,bp4_6,H1x,Herbicide 1x,"4,6,H1x",Fall2020,2020,Fall,0,0,0
-1,2,bp1_2,H1x1x,Herbicide 1x1x,"1,2,H1x1x",Fall2020,2020,Fall,0,0,0
-2,5,bp2_5,H1x1x,Herbicide 1x1x,"2,5,H1x1x",Fall2020,2020,Fall,0,0,0
-3,2,bp3_2,H1x1x,Herbicide 1x1x,"3,2,H1x1x",Fall2020,2020,Fall,0,0,0
-4,8,bp4_8,H1x1x,Herbicide 1x1x,"4,8,H1x1x",Fall2020,2020,Fall,0,0,0
-1,7,bp1_7,H2x1x,Herbicide 3x,"1,7,H2x1x",Fall2020,2020,Fall,0,0,0
-2,7,bp2_7,H2x1x,Herbicide 3x,"2,7,H2x1x",Fall2020,2020,Fall,0,0,0
-3,8,bp3_8,H2x1x,Herbicide 3x,"3,8,H2x1x",Fall2020,2020,Fall,0,0,0
-4,5,bp4_5,H2x1x,Herbicide 3x,"4,5,H2x1x",Fall2020,2020,Fall,0,0,0
-1,3,bp1_3,P,Manual removal,"1,3,P",Fall2020,2020,Fall,0,0,0
-2,8,bp2_8,P,Manual removal,"2,8,P",Fall2020,2020,Fall,0,0,0
-3,7,bp3_7,P,Manual removal,"3,7,P",Fall2020,2020,Fall,0,0,0
-4,2,bp4_2,P,Manual removal,"4,2,P",Fall2020,2020,Fall,0,0,0
-1,1,bp1_1,PH,Manual removal and herbicide,"1,1,PH",Fall2020,2020,Fall,0,0,0
-2,2,bp2_2,PH,Manual removal and herbicide,"2,2,PH",Fall2020,2020,Fall,0,0,0
-3,3,bp3_3,PH,Manual removal and herbicide,"3,3,PH",Fall2020,2020,Fall,0,0,0
-4,1,bp4_1,PH,Manual removal and herbicide,"4,1,PH",Fall2020,2020,Fall,0,0,0
 1,4,bp1_4,CH,Cut and herbicide,"1,4,CH",Fall2022,2022,Fall,18,4.242640687,2.255272505
 2,6,bp2_6,CH,Cut and herbicide,"2,6,CH",Fall2022,2022,Fall,0,0,0
 3,6,bp3_6,CH,Cut and herbicide,"3,6,CH",Fall2022,2022,Fall,8,2.828427125,1.903089987

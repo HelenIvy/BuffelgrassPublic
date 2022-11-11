@@ -1,0 +1,31 @@
+Block,Plot,BlockPlot,Code,Treatment,Year,Season,SeasonYear,Individuals
+2,4a,24a,CNT-P,Manual removal 2x,2020,Spring,Spring2020,54
+2,4b,24b,CNT-H,Herbicide 2x,2020,Spring,Spring2020,54
+3,5a,35a,CNT-H,Herbicide 2x,2020,Spring,Spring2020,60
+3,5b,35b,CNT-P,Manual removal 2x,2020,Spring,Spring2020,30
+4,7a,47a,CNT-H,Herbicide 2x,2020,Spring,Spring2020,60
+4,7b,47b,CNT-P,Manual removal 2x,2020,Spring,Spring2020,65
+2,4a,24a,CNT-P,Manual removal 2x,2021,Spring,Spring2021,3
+2,4b,24b,CNT-H,Herbicide 2x,2021,Spring,Spring2021,12
+3,5a,35a,CNT-H,Herbicide 2x,2021,Spring,Spring2021,6
+3,5b,35b,CNT-P,Manual removal 2x,2021,Spring,Spring2021,0
+4,7a,47a,CNT-H,Herbicide 2x,2021,Spring,Spring2021,7
+4,7b,47b,CNT-P,Manual removal 2x,2021,Spring,Spring2021,28
+2,4a,24a,CNT-P,Manual removal 2x,2021,Fall,Fall2021,71
+2,4b,24b,CNT-H,Herbicide 2x,2021,Fall,Fall2021,99
+3,5a,35a,CNT-H,Herbicide 2x,2021,Fall,Fall2021,205
+3,5b,35b,CNT-P,Manual removal 2x,2021,Fall,Fall2021,57
+4,7a,47a,CNT-H,Herbicide 2x,2021,Fall,Fall2021,91
+4,7b,47b,CNT-P,Manual removal 2x,2021,Fall,Fall2021,160
+2,4a,24a,CNT-P,Manual removal 2x,2022,Spring,Spring2022,4
+2,4b,24b,CNT-H,Herbicide 2x,2022,Spring,Spring2022,71
+3,5a,35a,CNT-H,Herbicide 2x,2022,Spring,Spring2022,24
+3,5b,35b,CNT-P,Manual removal 2x,2022,Spring,Spring2022,1
+4,7a,47a,CNT-H,Herbicide 2x,2022,Spring,Spring2022,20
+4,7b,47b,CNT-P,Manual removal 2x,2022,Spring,Spring2022,29
+2,4a,24a,CNT-P,Manual removal 2x,2022,Fall,Fall2022,14
+2,4b,24b,CNT-H,Herbicide 2x,2022,Fall,Fall2022,27
+3,5a,35a,CNT-H,Herbicide 2x,2022,Fall,Fall2022,42
+3,5b,35b,CNT-P,Manual removal 2x,2022,Fall,Fall2022,5
+4,7a,47a,CNT-H,Herbicide 2x,2022,Fall,Fall2022,52
+4,7b,47b,CNT-P,Manual removal 2x,2022,Fall,Fall2022,364
