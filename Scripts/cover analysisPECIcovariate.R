@@ -1,14 +1,16 @@
 
 #read in data
 library(readxl)
-library(readxl)
-library(readxl)
-Plant_community_cover <- read_excel("Data/Plant community cover.xlsx", 
-                                    sheet = "Cut")
-View(Plant_community_cover)
-#in this data set, 2021-2022 cover for invaded control plots is included, but PECI cover is n/a for those plots. To compare native plant community, there is "nativecovernocontrol" which also includes those plots for those years as na
+Plant_community_coverPECIcovariate <- read_excel("Data/Plant community coverPECIcovariate.xlsx", 
+                                                 sheet = "CUT2")
+View(Plant_community_coverPECIcovariate)
 
-DATACoverNO <- Plant_community_cover
+
+#in this data set, 2021-2022 cover for invaded control plots is included, but PECI cover is n/a for those plots. 
+#To compare native plant community, there is "nativecovernocontrol" which also includes those plots for those years as na
+#2018 is removed and PECI baseline added
+
+DATACoverNO <- Plant_community_coverPECIcovariate
 
 # remove na in r - remove rows - na.omit function / option
 ompleterecords <- na.omit(DATACoverNO)
@@ -37,41 +39,19 @@ require(lme4)
 
 
 #used sqrt for PECI cover
-m2 <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
-summary (m2)
+
+m2a <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
+summary (m2a)
+m2b <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BLOCK)+(1|BaselinePECI), data =  DATACoverNO)
+summary (m2b)
+
 #native total, native annual, non-native, and P. ciliare standing dead cover were square root transformed to meet assumptions of normality. 
-
-m4 <- lmer(SQRTNativecover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
-summary (m4)
-m4b <- lmer(SQRTNativecoverNOcnt2122 ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
-summary (m4b)
-
-m5 <- lmer(nativeperennialcover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
-summary (m5)
-
-
-m8 <- lmer(SQRTnativeannualcover  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
-summary (m8)
-
-m10 <- lmer(SQRTNNcovernoPECI  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
-summary (m10)
-m11 <- lmer(SQRTPECIStandingdead  ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
-summary (m11)
 
 library(car)
 require(car)
-Anova(m1)
-Anova(m2)
-Anova(m3)
-Anova(m4)
-Anova(m4b)
-Anova(m5)
-Anova(m6)
-Anova(m7)
-Anova(m8)
-Anova(m9)
-Anova(m10)
-Anova(m11)
+Anova(m2a)
+Anova(m2b)
+
 
 #studentized residuals
 # fits an lmer model
@@ -98,93 +78,15 @@ head(resids)
 plot_redres(m1, type = "std_cond")
 
 
-#residuals m2;
+#residuals m2a;
 
 rc_resids <- compute_redres(m2)
 pm_resids <- compute_redres(m2, type = "pearson_mar")
 sc_resids <- compute_redres(m2, type = "std_cond")
 resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
 head(resids) 
-plot_redres(m2, type = "std_cond")
+plot_redres(m2a, type = "std_cond")
 
-#residuals m3;
-
-rc_resids <- compute_redres(m3)
-pm_resids <- compute_redres(m3, type = "pearson_mar")
-sc_resids <- compute_redres(m3, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
-head(resids) 
-plot_redres(m3, type = "std_cond")
-
-#residuals m4;
-
-rc_resids <- compute_redres(m4)
-pm_resids <- compute_redres(m4, type = "pearson_mar")
-sc_resids <- compute_redres(m4, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
-head(resids) 
-plot_redres(m4, type = "std_cond")
-
-#residuals m5;
-#looks better than the sqrt transform;
-
-rc_resids <- compute_redres(m5)
-pm_resids <- compute_redres(m5, type = "pearson_mar")
-sc_resids <- compute_redres(m5, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
-head(resids) 
-plot_redres(m5, type = "std_cond")
-
-#residuals m6;
-
-rc_resids <- compute_redres(m6)
-pm_resids <- compute_redres(m6, type = "pearson_mar")
-sc_resids <- compute_redres(m6, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
-head(resids) 
-plot_redres(m6, type = "std_cond")
-
-#residuals m7;
-#looks terrible;
-rc_resids <- compute_redres(m7)
-pm_resids <- compute_redres(m7, type = "pearson_mar")
-sc_resids <- compute_redres(m7, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
-head(resids) 
-plot_redres(m7, type = "std_cond")
-
-#residuals m8;
-#looks great;
-rc_resids <- compute_redres(m8)
-pm_resids <- compute_redres(m8, type = "pearson_mar")
-sc_resids <- compute_redres(m8, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
-head(resids) 
-plot_redres(m8, type = "std_cond")
-
-#residuals m9;
-rc_resids <- compute_redres(m9)
-pm_resids <- compute_redres(m9, type = "pearson_mar")
-sc_resids <- compute_redres(m9, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
-head(resids) 
-plot_redres(m9, type = "std_cond")
-
-#residuals m10;
-rc_resids <- compute_redres(m10)
-pm_resids <- compute_redres(m10, type = "pearson_mar")
-sc_resids <- compute_redres(m10, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
-head(resids) 
-plot_redres(m10, type = "std_cond")
-
-#residuals m11;
-rc_resids <- compute_redres(m11)
-pm_resids <- compute_redres(m11, type = "pearson_mar")
-sc_resids <- compute_redres(m11, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
-head(resids) 
-plot_redres(m11, type = "std_cond")
 
 library(emmeans)
 require(emmeans)
@@ -194,7 +96,7 @@ require(multcomp)
 
 
 #posthoc differences m1 - treatment and year significant
-marginal = emmeans(m2,
+marginal = emmeans(m2a,
                    ~ TREATMENT*YEAR)
 pairs(marginal,
       adjust="tukey")
@@ -202,8 +104,17 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
-marginal = emmeans(m2,
+
+marginal = emmeans(m2a,
                    ~ TREATMENT)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+marginal = emmeans(m2a,
+                   ~ YEAR)
 pairs(marginal,
       adjust="tukey")
 cld(marginal,
@@ -211,15 +122,7 @@ cld(marginal,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
 
-marginal = emmeans(m4,
-                   ~ TREATMENT)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
-marginal = emmeans(m4,
+marginal = emmeans(m2b,
                    ~ TREATMENT*YEAR)
 pairs(marginal,
       adjust="tukey")
@@ -227,15 +130,8 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
-marginal = emmeans(m5,
-                   ~ YEAR)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
-marginal = emmeans(m5,
+
+marginal = emmeans(m2b,
                    ~ TREATMENT)
 pairs(marginal,
       adjust="tukey")
@@ -243,16 +139,7 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
-
-marginal = emmeans(m8,
-                   ~ YEAR)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
-marginal = emmeans(m10,
+marginal = emmeans(m2b,
                    ~ YEAR)
 pairs(marginal,
       adjust="tukey")

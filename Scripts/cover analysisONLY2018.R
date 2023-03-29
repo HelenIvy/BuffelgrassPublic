@@ -1,8 +1,6 @@
 
 #read in data
 library(readxl)
-library(readxl)
-library(readxl)
 library(readr)
 Plant_community_cover2018ONLY <- read_csv("Data/Plant community cover2018ONLY.csv")
 View(Plant_community_cover2018ONLY)
@@ -26,6 +24,8 @@ ompleterecords <- na.omit(DATA2018)
 #If use YEAR is categorical, if use Year is continous
 summary( DATA2018)
 
+#FILTER out uninvaded control plots
+DATA20182 <- subset(DATA2018, TREATMENT!= 'UnInvaded control')
 
 #repeated measures(1\SUBJECT) for the random subject effect 
 
@@ -39,6 +39,8 @@ require(lme4)
 #normal distribution best for PECI
 m1 <- lmer(PECICover ~TREATMENT +(1|BLOCK), data =  DATA2018)
 summary (m1)
+m1b <- lmer(PECICover ~TREATMENT +(1|BLOCK), data =  DATA20182)
+summary (m1b)
 m2b <- lmer(Nativecover ~TREATMENT +(1|BLOCK), data =  DATA2018)
 summary (m2b)
 m2c <- lmer(SQRTNativecover ~TREATMENT +(1|BLOCK), data =  DATA2018)
@@ -48,6 +50,7 @@ summary (m2c)
 library(car)
 require(car)
 Anova(m1)
+Anova(m1b)
 Anova(m2b)
 Anova(m2c)
 
@@ -76,7 +79,13 @@ head(resids)
 # creates a plot of the conditional studentized residuals versus the fitted values
 plot_redres(m1, type = "std_cond")
 
-
+#2b
+rc_resids <- compute_redres(m1b)
+pm_resids <- compute_redres(m1b, type = "pearson_mar")
+sc_resids <- compute_redres(m1b, type = "std_cond")
+resids <- data.frame(DATA$Stacked_inds_removed_added_within_season, rc_resids, pm_resids, sc_resids)
+head(resids) 
+plot_redres(m1b, type = "std_cond")
 #residuals m2; gap in the middle of the residuals - does this matter? m2b better than m2c
 
 rc_resids <- compute_redres(m2b)
@@ -112,6 +121,15 @@ cld(marginal,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
 marginal = emmeans(m1,
+                   ~ TREATMENT)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+
+marginal = emmeans(m1b,
                    ~ TREATMENT)
 pairs(marginal,
       adjust="tukey")

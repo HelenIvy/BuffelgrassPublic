@@ -31,12 +31,6 @@ summary(DATAglmm)
 
 install.packages("glmmTMB")
 citeNatbib("glmmTMB")
-install.packages("car")
-install.packages("MASS")
-install.packages("bbmle")
-install.packages("emmeans")
-install.packages("multcompView")
-install.packages("multcomp")
 library("glmmTMB")
 require("glmmTMB")
 library("bbmle") ## for AICtab
@@ -49,7 +43,7 @@ theme_set(theme_bw()+
 require(glmmTMB)
 require(car)
 fit_zipoisson <- glmmTMB(Individuals~TREATMENT + SEASONYEAR 
-                                                   + (1|BLOCK)+(1|BLOCKPLOT),
+                                                   + (1|BLOCK)+(1|BaselinePECI) ,
                          data=DATAglmm,
                          ziformula=~1,
                          family=poisson)
