@@ -1,14 +1,10 @@
 
 #read in data
 library(readxl)
-
-
 Plant_community_coverPECIcovariate <- read_excel("Data/Plant community coverPECIcovariate.xlsx", 
                                                  sheet = "Cut")
 View(Plant_community_coverPECIcovariate)
-#in this data set, 2021-2022 cover for invaded control plots is included, but PECI cover is n/a for those plots. 
-#To compare native plant community, there is "nativecovernocontrol" which also includes those plots for those years as na
-#This includes baseline 2018, so we need to decide whether to filter out invasive control plots in 2018 or altogether
+#in this data set, 2021-2022 cover for invaded control plots is included, but PECI cover is n/a for those plots. To compare native plant community, there is "nativecovernocontrol" which also includes those plots for those years as na
 
 DATACoverNO <- Plant_community_coverPECIcovariate
 
@@ -24,12 +20,8 @@ ompleterecords <- na.omit(DATACoverNO)
   
   
 })
-
 #If use YEAR is categorical, if use Year is continous
 summary( DATACoverNO)
-
-#FILTER out invaded control plots
-DATACoverNO2 <- subset(DATACoverNO, TREATMENT!= 'Invaded control')
 
 
 #repeated measures(1\SUBJECT) for the random subject effect 
@@ -45,8 +37,8 @@ require(lme4)
 #used sqrt for PECI cover
 m2 <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
 summary (m2)
-m2b <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO2)
-summary (m2b)
+m2c <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BaselinePECI)+(1|BLOCK), data =  DATACoverNO)
+summary (m2c)
 #native total, native annual, non-native, and P. ciliare standing dead cover were square root transformed to meet assumptions of normality. 
 
 m4 <- lmer(SQRTNativecover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
@@ -70,7 +62,7 @@ library(car)
 require(car)
 Anova(m1)
 Anova(m2)
-Anova(m2b)
+Anova(m2c)
 Anova(m3)
 Anova(m4)
 Anova(m4b)
@@ -211,25 +203,7 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
-
-marginal = emmeans(m2,
-                   ~ TREATMENT)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
-
-marginal = emmeans(m2,
-                   ~ YEAR)
-pairs(marginal,
-      adjust="tukey")
-cld(marginal,
-    alpha=0.05,
-    Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey")
-marginal = emmeans(m2b,
+marginal = emmeans(m2c,
                    ~ TREATMENT*YEAR)
 pairs(marginal,
       adjust="tukey")
@@ -237,8 +211,7 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
-
-marginal = emmeans(m2b,
+marginal = emmeans(m2,
                    ~ TREATMENT)
 pairs(marginal,
       adjust="tukey")
@@ -246,8 +219,15 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
-
-marginal = emmeans(m2b,
+marginal = emmeans(m2c,
+                   ~ TREATMENT)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+marginal = emmeans(m2,
                    ~ YEAR)
 pairs(marginal,
       adjust="tukey")

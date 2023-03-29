@@ -43,7 +43,7 @@ theme_set(theme_bw()+
 require(glmmTMB)
 require(car)
 fit_zipoisson <- glmmTMB(Individuals~TREATMENT + SEASONYEAR 
-                                                   + (1|BLOCK)+(1|BaselinePECI) ,
+                                                   + (1|BLOCK)+(1|BLOCKPLOT) ,
                          data=DATAglmm,
                          ziformula=~1,
                          family=poisson)
