@@ -4,6 +4,8 @@ library(readxl)
 Plant_community_coverPECIcovariate <- read_excel("Data/Plant community coverPECIcovariate.xlsx", 
                                                  sheet = "Cut")
 View(Plant_community_coverPECIcovariate)
+
+
 #in this data set, 2021-2022 cover for invaded control plots is included, but PECI cover is n/a for those plots. To compare native plant community, there is "nativecovernocontrol" which also includes those plots for those years as na
 
 DATACoverNO <- Plant_community_coverPECIcovariate
@@ -23,6 +25,8 @@ ompleterecords <- na.omit(DATACoverNO)
 #If use YEAR is categorical, if use Year is continous
 summary( DATACoverNO)
 
+DATACoverNO2 <- subset(DATACoverNO, YEAR!= '2018')
+DATACoverNO3 <- subset(DATACoverNO, TREATMENT!= 'Invaded control')
 
 #repeated measures(1\SUBJECT) for the random subject effect 
 
@@ -34,15 +38,31 @@ library(redres)
 require(lme4)
 
 
-#used sqrt for PECI cover
-m2 <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
+#M2 FINAL MODEL: used sqrt for PECI cover,WITH INVADED CONTROL, NO INTERACTION, BASELINE PECI AS COVARIATE, NO BLOCKPLOT
+m2 <- lmer(SQRTPECIcover ~TREATMENT+YEAR +BaselinePECI +(1|BLOCK), data =  DATACoverNO2)
 summary (m2)
-m2c <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BaselinePECI)+(1|BLOCK), data =  DATACoverNO)
+#used sqrt for PECI coverWITH INVADED CONTROL ORIGINAL MODEL AND BASELINE PECI AS RANDOM EFFECTS
+m2b <- lmer(SQRTPECIcover ~TREATMENT+YEAR + (1|BaselinePECI)+(1|BLOCK), data =  DATACoverNO)
+summary (m2b)
+m2b2 <- lmer(SQRTPECIcover ~TREATMENT+YEAR + (1|BaselinePECI)+(1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
+summary (m2b2)
+#used sqrt for PECI coverWITHout INVADED CONTROL WITH BASELINE PECI AS RANDOM
+m2c <- lmer(SQRTPECIcover ~TREATMENT+YEAR + (1|BaselinePECI)+(1|BLOCK), data =  DATACoverNO3)
 summary (m2c)
+#used sqrt for PECI coverWITHOUT INVADED CONTROL ORIGINAL MODEL
+m2D <- lmer(SQRTPECIcover ~TREATMENT+YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO3)
+summary (m2D)
+
 #native total, native annual, non-native, and P. ciliare standing dead cover were square root transformed to meet assumptions of normality. 
 
+
+ 
 m4 <- lmer(SQRTNativecover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
 summary (m4)
+#add covariate???
+m4c <- lmer(SQRTNativecover ~TREATMENT*YEAR +ONPICover + BRTOCover+ (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
+summary (m4c)
+
 m4b <- lmer(SQRTNativecoverNOcnt2122 ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
 summary (m4b)
 
@@ -62,9 +82,15 @@ library(car)
 require(car)
 Anova(m1)
 Anova(m2)
+Anova(m2b)
+Anova(m2b2)
 Anova(m2c)
+Anova(m2D)
+Anova(m2E)
 Anova(m3)
 Anova(m4)
+
+Anova(m4c)
 Anova(m4b)
 Anova(m5)
 Anova(m6)
@@ -99,7 +125,7 @@ head(resids)
 plot_redres(m1, type = "std_cond")
 
 
-#residuals m2;
+#residuals m2; LOOK OK
 
 rc_resids <- compute_redres(m2)
 pm_resids <- compute_redres(m2, type = "pearson_mar")
@@ -196,13 +222,22 @@ require(multcomp)
 
 #posthoc differences m1 - treatment and year significant
 marginal = emmeans(m2,
-                   ~ TREATMENT*YEAR)
+                   ~ TREATMENT)
 pairs(marginal,
       adjust="tukey")
 cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
+marginal = emmeans(m2,
+                   ~ YEAR)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+
 marginal = emmeans(m2c,
                    ~ TREATMENT*YEAR)
 pairs(marginal,
@@ -211,7 +246,7 @@ cld(marginal,
     alpha=0.05,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
-marginal = emmeans(m2,
+marginal = emmeans(m2b2,
                    ~ TREATMENT)
 pairs(marginal,
       adjust="tukey")
@@ -236,8 +271,8 @@ cld(marginal,
     Letters=letters,  ### Use lower-case letters for .group
     adjust="tukey")
 
-marginal = emmeans(m4,
-                   ~ TREATMENT)
+marginal = emmeans(m4c,
+                   ~ ONPICover)
 pairs(marginal,
       adjust="tukey")
 cld(marginal,

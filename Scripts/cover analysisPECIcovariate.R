@@ -10,13 +10,13 @@ View(Plant_community_coverPECIcovariate)
 #To compare native plant community, there is "nativecovernocontrol" which also includes those plots for those years as na
 #2018 is removed and PECI baseline added
 
-DATACoverNO <- Plant_community_coverPECIcovariate
+DATACoverNO18 <- Plant_community_coverPECIcovariate
 
 # remove na in r - remove rows - na.omit function / option
-ompleterecords <- na.omit(DATACoverNO)
+ompleterecords <- na.omit(DATACoverNO18)
 
 #Set categorical factors for main effects:
- DATACoverNO <- within( DATACoverNO, {
+ DATACoverNO18 <- within( DATACoverNO18, {
   BLOCK<-factor(Block)
   BLOCKPLOT<-factor(BlockPlot)
   TREATMENT<-factor(Treatment)
@@ -25,7 +25,7 @@ ompleterecords <- na.omit(DATACoverNO)
   
 })
 #If use YEAR is categorical, if use Year is continous
-summary( DATACoverNO)
+summary( DATACoverNO18)
 
 
 #repeated measures(1\SUBJECT) for the random subject effect 
@@ -40,9 +40,9 @@ require(lme4)
 
 #used sqrt for PECI cover
 
-m2a <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BLOCKPLOT)+(1|BLOCK), data =  DATACoverNO)
+m2a <- lmer(SQRTPECIcover ~TREATMENT+YEAR +BaselinePECI + (1|BLOCK), data =  DATACoverNO18)
 summary (m2a)
-m2b <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BLOCK)+(1|BaselinePECI), data =  DATACoverNO)
+m2b <- lmer(SQRTPECIcover ~TREATMENT*YEAR + (1|BLOCK)+(1|BaselinePECI), data =  DATACoverNO18)
 summary (m2b)
 
 #native total, native annual, non-native, and P. ciliare standing dead cover were square root transformed to meet assumptions of normality. 
@@ -83,7 +83,7 @@ plot_redres(m1, type = "std_cond")
 rc_resids <- compute_redres(m2)
 pm_resids <- compute_redres(m2, type = "pearson_mar")
 sc_resids <- compute_redres(m2, type = "std_cond")
-resids <- data.frame(DATACoverNO, rc_resids, pm_resids, sc_resids)
+resids <- data.frame(DATACoverNO18, rc_resids, pm_resids, sc_resids)
 head(resids) 
 plot_redres(m2a, type = "std_cond")
 
