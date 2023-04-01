@@ -8,11 +8,7 @@ install.packages("multcompView")
 install.packages("multcomp")
 #read in data
 
-library(readr)
-Individuals_INV_CNTRL <- read_csv("Data/Individuals INV CNTRL.csv")
-View(Individuals_INV_CNTRL)
-
-#READ IN DATA WITHOUT FALL 2020
+#READ IN DATA WITHOUT FALL 2020 AND WITH BASELINE AS NEW COLUMN
 
 library(readr)
 Individuals_INV_CNTRLnoFALL20 <- read_csv("Data/Individuals INV CNTRLnoFALL20.csv")
@@ -31,8 +27,11 @@ DATABGICglmm <- within(DATABGICglmm, {
   SEASONYEAR<-factor(SeasonYear)
   
 })
-#If use YEAR is categorical, if use Year is continous
+#use YEAR AS categorical
 summary(DATABGICglmm)
+
+#REMOVE BASELINE YEAR FROM DATASET
+DATABGICglmmB <- subset(DATABGICglmm, SEASONYEAR!= 'Spring2020')
 
 
 #followed: https://cran.r-project.org/web/packages/glmmTMB/vignettes/glmmTMB.pdf
@@ -48,9 +47,9 @@ theme_set(theme_bw()+
 
 require(glmmTMB)
 require(car)
-mpoi2 <- glmmTMB(Individuals~TREATMENT + SEASONYEAR 
-                                                   + (1|BLOCK)+(1|BLOCKPLOT),
-                         data=DATABGICglmm,
+mpoi2 <- glmmTMB(Individuals~TREATMENT + SEASONYEAR +BaselinePECI
+                                                   + (1|BLOCK),
+                         data=DATABGICglmmB,
                          ziformula=~1,
                          family=poisson)
 
@@ -58,16 +57,14 @@ summary(mpoi2)
 
 mzinbinom1b <- update(mpoi2,family=nbinom1)
 summary(mzinbinom1b)
+#binomial model does not converge, so poisson is the best model
 
 
-
-AICtab(mpoi2,mzinbinom1b)
-#best is mzinbinom1b
 
 #using car anova https://cran.r-project.org/web/packages/glmmTMB/vignettes/model_evaluation.pdf
 library(car)
-Anova(mzinbinom1b)
-Anova(mzinbinom1b,type="III")
+Anova(mpoi2)
+Anova(mpoi2,type="III")
   
 #Post-hoc analysis can be conducted with the emmeans package.
 library(multcompView)
@@ -79,8 +76,25 @@ require(emmeans)
 
 
 
-marginal = emmeans(mzinbinom1b,
+marginal = emmeans(mpoi2,
                    ~ SEASONYEAR)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+marginal = emmeans(mpoi2,
+                   ~ TREATMENT)
+pairs(marginal,
+      adjust="tukey")
+cld(marginal,
+    alpha=0.05,
+    Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey")
+
+marginal = emmeans(mpoi2,
+                   ~ BaselinePECI )
 pairs(marginal,
       adjust="tukey")
 cld(marginal,
